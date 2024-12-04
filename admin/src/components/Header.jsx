@@ -28,7 +28,7 @@ const Header = () => {
 
         {/* Dashboard and Icons Section */}
         <div className="other w-[87%] h-full flex">
-          <div className="dashboard h-full w-[75%] bg-slate-50 flex items-center justify-between">
+          <div className="dashboard h-full w-[75%] flex items-center justify-between">
             <div className="dashboard-title ml-4">
               <h1 className="font-bold text-2xl text-gray-800 tracking-wide flex items-center">
                 <span className="  px-2 py-1 rounded-lg mr-2 shadow-lg">
@@ -81,6 +81,7 @@ const Header = () => {
           </div>
         </div>
       </div>
+      <hr className="w-full h-1 bg-slate-300"/>
     </>
   );
 };

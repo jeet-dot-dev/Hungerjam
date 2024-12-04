@@ -1,0 +1,8 @@
+.menu-box .active {
+    background-color: white;
+    color: black; /* Change text color if needed */
+    border-bottom-left-radius: 999px; /* Ensures full rounding */
+    border-top-left-radius: 999px;
+    padding: 0.5rem;
+    width: 200px;
+}
