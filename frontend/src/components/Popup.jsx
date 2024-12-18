@@ -17,7 +17,7 @@ const Popup = () => {
 
   return (
     <motion.div
-      className="popup w-full h-[50px] bg-[#ffb701] absolute flex items-center justify-around "
+      className="popup w-full h-[50px] bg-[#ffb701] absolute flex items-center justify-around z-30 "
       initial={{ top: "-18rem" }}
       animate={playAnimation ? { top: "0rem" } : {}}
       transition={{ duration: 0.5, ease: "easeOut" }} // Adding easing

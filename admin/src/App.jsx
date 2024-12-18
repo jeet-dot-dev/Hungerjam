@@ -6,16 +6,18 @@ import Add from './pages/Add';
 import Edit from './pages/Edit';
 import Home from './pages/Home';
 import Order from './pages/Order';
+import { ToastContainer} from 'react-toastify';
 
 
 const App = () => {
   return (
     <>
+   
       <div className='flex flex-col w-screen h-full'>
         <div>
           <Header />
         </div>
-        <div className='flex h-full w-screen'>
+        <div className='flex h-full w-screen '>
           <Nav />
           <Routes>
             <Route path="/add" element={<Add />} />

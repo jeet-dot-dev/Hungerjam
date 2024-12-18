@@ -22,7 +22,7 @@ const Navbar = ({ show,scrollValue}) => {
 
   return (
     <div
-      className={`w-full h-[100px]  absolute ${
+      className={`w-full h-[100px] z-40  absolute ${
         show ? "mt-[50px]" : ""
       } ${scrollValue*100>1 ?"bg-[#000] opacity-60" : "bg-black"} flex items-center justify-start gap-10`}
     >
@@ -69,7 +69,7 @@ const Navbar = ({ show,scrollValue}) => {
         ))}
       </div>
       <div className="btn text-white ml-36">
-        <span className="h-[50px] bg-[#ffb701] inline-block px-5 py-3 hover:bg-zinc-700 hover:text-white  duration-500 rounded-lg cursor-pointer">
+        <span className="h-[50px] bg-[#ffb701] inline-block px-5 py-3 hover:bg-zinc-700 hover:text-white  duration-500 rounded-lg cursor-pointer text-[18px]">
           <Link to='/menu'>Order Now</Link>
         </span>
       </div>

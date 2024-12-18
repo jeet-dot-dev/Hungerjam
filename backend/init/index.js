@@ -25,7 +25,7 @@ connectDB();
 
 
 const addData = async () => {
-  let res = await Food.insertMany(foodData);
+  let res = await Food.deleteMany({});
   console.log(res);
 };
 

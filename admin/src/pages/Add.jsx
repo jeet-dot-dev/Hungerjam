@@ -1,90 +1,108 @@
 import React, { useContext, useState } from "react";
-import { StoreContext } from '../context/Context'
+import { StoreContext } from "../context/Context";
 import axios from "axios";
+import { haddleError, haddleSuccess } from "../Utils/Utils";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import Toastify styles
 
 const Add = () => {
-  // Context: Take URL from StoreContext
   const { url } = useContext(StoreContext);
 
-  // State to manage food data
   const [foodData, setFoodData] = useState({
     name: "",
     description: "",
     price: "",
     category: "",
-    images: [], // Array to hold image URLs
-    rating: ""
+    images: [],
+    rating: "",
   });
 
-  // Handles input changes and updates state dynamically
   const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    if (name.startsWith("image")) {
-      // Update the `images` array for image inputs
-      setFoodData((prev) => ({
-        ...prev,
-        images: [
-          ...prev.images.filter((image) => image !== ""), // Filter out any empty strings
-          value, // Add the new image URL
-        ],
-      }));
+    const { name, type, files } = e.target;
+    if (type === "file") {
+      const index = parseInt(name.replace("image", ""), 10) - 1;
+      const file = files[0];
+      setFoodData((prev) => {
+        const updatedImages = [...prev.images];
+        updatedImages[index] = file;
+        return { ...prev, images: updatedImages };
+      });
     } else {
-      // Update other fields normally
       setFoodData((prev) => ({
         ...prev,
-        [name]: value,
+        [name]: e.target.value,
       }));
     }
-    console.log(foodData); // Log the updated food data to the console
   };
 
-  // Handles form submission to add the food item
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { name, description, images, price, category, rating } = foodData;
+    console.log(foodData);
+    const { name, description, price, category, rating, images } = foodData;
 
     try {
-      const newUrl = url + "/api/food/add"; // API URL
-      // Await the response from axios.post
-      const res = await axios.post(newUrl, {
-        name,
-        description,
-        price,
-        rating,
-        category,
-        images
-      }, {
-        headers: {
-          "Content-Type": "application/json",
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("price", price);
+      formData.append("category", category);
+      formData.append("rating", rating);
+      images.forEach((image, index) => {
+        if (image) {
+          formData.append(`image${index + 1}`, image);
         }
       });
-      console.log("API response:", res.data); // Log the response data
+
+      const newUrl = `${url}/api/food/add`;
+      const res = await axios.post(newUrl, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      haddleSuccess(res.data.message);
+      setFoodData({
+        name: "",
+        description: "",
+        price: "",
+        category: "",
+        images: [],
+        rating: "",
+      });
     } catch (error) {
-      console.log("Food data being sent:", foodData); // Log the food data
-      console.error("Error occurred while submitting the data:", error);
+      console.log(error);
+      haddleError(
+        error.response?.data?.errors?.map((err) => err.message).join(", ") ||
+          "An unknown error occurred"
+      );
     }
   };
 
-  // Function to generate image preview for each image URL input
-  const renderImagePreview = (url) => {
-    return url ? (
+  const renderImagePreview = (image) => {
+    return image ? (
       <div className="mt-2">
-        <img src={url} alt="Image Preview" className="w-24 h-24 object-cover rounded-md" />
+        <img
+          src={URL.createObjectURL(image)}
+          alt="Image Preview"
+          className="w-24 h-24 object-cover rounded-md"
+        />
       </div>
-    ) : null; // Return null if the URL is empty
+    ) : null;
   };
 
   return (
-    <div className="h-screen w-full flex justify-center items-center bg-gray-50 overflow-hidden">
-      <div className="bg-white shadow-lg rounded-lg p-8 w-[90%] max-w-4xl overflow-auto">
-        <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">Add New Food Item</h1>
-
+    <div className="h-screen w-full flex justify-center items-center bg-gray-50">
+      {/* Place ToastContainer outside the main content */}
+      <ToastContainer />
+      <div className="bg-white shadow-lg rounded-lg p-8 w-[90%] max-w-4xl overflow-y-auto h-[90%]">
+        <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+          Add New Food Item
+        </h1>
         <form className="space-y-6" onSubmit={handleSubmit}>
-          {/* Name and Price (Side-by-Side) */}
           <div className="flex gap-4">
             <div className="flex-1">
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Name
               </label>
               <input
@@ -98,7 +116,10 @@ const Add = () => {
               />
             </div>
             <div className="flex-1">
-              <label htmlFor="price" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="price"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Price (₹)
               </label>
               <input
@@ -112,10 +133,11 @@ const Add = () => {
               />
             </div>
           </div>
-
-          {/* Description */}
           <div>
-            <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="description"
+              className="block text-sm font-medium text-gray-700"
+            >
               Description
             </label>
             <textarea
@@ -128,11 +150,12 @@ const Add = () => {
               className="w-full mt-1 p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             ></textarea>
           </div>
-
-          {/* Rating and Category (Side-by-Side) */}
           <div className="flex gap-4">
             <div className="flex-1">
-              <label htmlFor="rating" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="rating"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Rating
               </label>
               <input
@@ -146,7 +169,10 @@ const Add = () => {
               />
             </div>
             <div className="flex-1">
-              <label htmlFor="category" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="category"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Category
               </label>
               <select
@@ -158,33 +184,31 @@ const Add = () => {
               >
                 <option value="Rolls">Rolls</option>
                 <option value="Coffee">Coffee</option>
-                <option value="Chowmin">Chowmin</option>
+                <option value="Chowmein">Chowmein</option>
                 <option value="Pasta">Pasta</option>
+                <option value="potato-spiral">Potato Spiral</option>
               </select>
             </div>
           </div>
-
-          {/* Image Inputs with Preview */}
           <div>
-            <h2 className="text-sm font-medium text-gray-700 mb-2">Add Images</h2>
-            <div className="grid grid-cols-2 gap-4">
+            <h2 className="text-sm font-medium text-gray-700 mb-2">
+              Add Images
+            </h2>
+            <div className="flex flex-wrap gap-4">
               {[1, 2, 3, 4, 5].map((index) => (
-                <div key={index}>
+                <div key={index} className="flex flex-col items-center">
                   <input
-                    onChange={handleChange}
-                    value={foodData.images[index] || ''}
-                    type="url"
+                    type="file"
                     name={`image${index}`}
-                    placeholder={`Image URL ${index}`}
+                    accept="image/*" // Optional: restrict to image files
+                    onChange={handleChange}
                     className="w-full p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
-                  {renderImagePreview(foodData.images[index])} {/* Image Preview */}
+                  {renderImagePreview(foodData.images[index - 1])}
                 </div>
               ))}
             </div>
           </div>
-
-          {/* Submit Button */}
           <div className="mt-4">
             <button
               type="submit"

@@ -25,15 +25,53 @@ const fooValidation = (req, res, next) => {
       "string.empty": "Category is required",
       "any.required": "Category field is mandatory",
     }),
-    images: Joi.array()
-      .items(Joi.string().uri().trim().required())
-      .min(1)
-      .required()
-      .messages({
-        "array.base": "Images must be an array of URLs",
-        "array.min": "At least one image URL is required",
-        "string.uri": "Each image must be a valid URL",
-      }),
+    imagePaths: Joi.object({
+      image1: Joi.array()
+        .items(Joi.string().uri().trim().required())
+        .min(1)
+        .required()
+        .messages({
+          "array.base": "image1 must be an array of URLs",
+          "array.min": "At least one image URL is required for image1",
+          "string.uri": "Each image in image1 must be a valid URL",
+        }),
+      image2: Joi.array()
+        .items(Joi.string().uri().trim().required())
+        .min(1)
+        .required()
+        .messages({
+          "array.base": "image2 must be an array of URLs",
+          "array.min": "At least one image URL is required for image2",
+          "string.uri": "Each image in image2 must be a valid URL",
+        }),
+      image3: Joi.array()
+        .items(Joi.string().uri().trim().required())
+        .min(1)
+        .required()
+        .messages({
+          "array.base": "image3 must be an array of URLs",
+          "array.min": "At least one image URL is required for image3",
+          "string.uri": "Each image in image3 must be a valid URL",
+        }),
+      image4: Joi.array()
+        .items(Joi.string().uri().trim().required())
+        .min(1)
+        .required()
+        .messages({
+          "array.base": "image4 must be an array of URLs",
+          "array.min": "At least one image URL is required for image4",
+          "string.uri": "Each image in image4 must be a valid URL",
+        }),
+      image5: Joi.array()
+        .items(Joi.string().uri().trim().required())
+        .min(1)
+        .required()
+        .messages({
+          "array.base": "image5 must be an array of URLs",
+          "array.min": "At least one image URL is required for image5",
+          "string.uri": "Each image in image5 must be a valid URL",
+        }),
+    }).optional(),
   });
 
   const { error } = foodSchema.validate(req.body, { abortEarly: false }); // Abort early set to false to collect all errors

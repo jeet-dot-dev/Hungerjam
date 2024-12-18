@@ -26,3 +26,18 @@
   font-optical-sizing: auto;
   
 }
+
+.lavishly-yours-regular {
+  font-family: "Lavishly Yours", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+
+.rasa {
+  font-family: "Rasa", serif;
+  font-optical-sizing: auto;
+  font-weight:300;
+  font-style: normal;
+}
