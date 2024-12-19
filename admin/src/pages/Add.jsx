@@ -19,13 +19,22 @@ const Add = () => {
 
   const handleChange = (e) => {
     const { name, type, files } = e.target;
+
     if (type === "file") {
+      // Extract the index from the name attribute
       const index = parseInt(name.replace("image", ""), 10) - 1;
-      const file = files[0];
+      const file = files[0]; // Get the uploaded file
+      console.log(files);
+
       setFoodData((prev) => {
-        const updatedImages = [...prev.images];
-        updatedImages[index] = file;
-        return { ...prev, images: updatedImages };
+        const updatedImages = [...prev.images]; // Copy the current images array
+        updatedImages[index] = file; // Update the specific index with the new file
+        console.log("hello", updatedImages);
+
+        return {
+          ...prev,
+          images: updatedImages, // Update the images array in state
+        };
       });
     } else {
       setFoodData((prev) => ({
@@ -35,11 +44,16 @@ const Add = () => {
     }
   };
 
+  console.log(foodData);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(foodData);
     const { name, description, price, category, rating, images } = foodData;
-
+    if (!name || !description || !price || !category || !rating || images.length === 0) {
+      haddleError("All fields are required!");
+      return;
+    }
+    console.log(images);
     try {
       const formData = new FormData();
       formData.append("name", name);
@@ -49,14 +63,16 @@ const Add = () => {
       formData.append("rating", rating);
       images.forEach((image, index) => {
         if (image) {
-          formData.append(`image${index + 1}`, image);
+          formData.append(`image${index + 1}`, image); // Add the file to formData
         }
       });
-
+      console.log("formdtaa:",formData);
       const newUrl = `${url}/api/food/add`;
       const res = await axios.post(newUrl, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+    
+     
 
       haddleSuccess(res.data.message);
       setFoodData({
@@ -69,12 +85,12 @@ const Add = () => {
       });
     } catch (error) {
       console.log(error);
-      haddleError(
-        error.response?.data?.errors?.map((err) => err.message).join(", ") ||
-          "An unknown error occurred"
-      );
     }
   };
+
+  
+
+  
 
   const renderImagePreview = (image) => {
     return image ? (

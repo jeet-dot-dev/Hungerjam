@@ -9,7 +9,7 @@ import { FaPenToSquare } from "react-icons/fa6";
 
 const Nav = () => {
   return (
-    <div className='h-screen w-[13%] bg-pink-500'>
+    <div className='h-screen w-[13%] bg-[#ffb701]'>
       <div className="main w-full ml-10 mt-9 h-[70%] flex flex-col items-center justify-start gap-10">
         <div className="menu-box w-full h-[60px] flex items-center justify-center gap-3 p-2 rounded-full">
           <span className="icon"><MdDashboard /></span>

@@ -16,7 +16,7 @@ foodRoute.post(
     { name: "image4", maxCount: 1 },
     { name: "image5", maxCount: 1 },
   ]),
-  
+  fooValidation,
   addData
 );
 
