@@ -202,7 +202,7 @@ const Hero = () => {
         <FoodCardsHome></FoodCardsHome>
         <BannerLogo/>
         <DeliverySection/>
-       <Footer/>
+        <Footer/>
       </div>
     </>
   );

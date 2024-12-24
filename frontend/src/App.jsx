@@ -6,6 +6,7 @@ import Popup from "./components/Popup";
 import Navbar from "./components/Navbar";
 import HeroCard from "./components/HeroCard";
 import Home from './Pages/Home'
+import Menu from './Pages/Menu'
 import Footer from "./components/Footer";
 
 const App = () => {
@@ -17,7 +18,7 @@ const App = () => {
 
 
   return (
-    <motion.div className="h-screen w-screen flex flex-col ">
+    <div className="h-screen w-screen flex flex-col ">
       <motion.div className={`w-screen  h-[50px] fixed`}>
         {show ? <Popup /> : <></>}
         <Navbar show={show} scrollValue={scrollValue} />
@@ -25,9 +26,10 @@ const App = () => {
       <HeroCard />
       <Routes>
         <Route path='/' element={<Home/>}/>
+        <Route path='/menu' element={<Menu/>}/>
       </Routes>
-     
-    </motion.div>
+    
+    </div>
   );
 };
 
