@@ -18,7 +18,7 @@ const App = () => {
 
 
   return (
-    <div className="h-screen w-screen flex flex-col ">
+    <div className=" w-screen h-[10px] flex flex-col ">
       <motion.div className={`w-screen  h-[50px] fixed`}>
         {show ? <Popup /> : <></>}
         <Navbar show={show} scrollValue={scrollValue} />

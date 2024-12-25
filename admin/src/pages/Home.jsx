@@ -59,7 +59,7 @@ const Home = () => {
                 >
                   <div className="h-40 w-full bg-gray-100 flex-shrink-0">
                     <img
-                       src={item.imagePaths[2]?.url} // Accessing the 3rd image
+                       src={item.imagePaths[4]?.url} // Accessing the 3rd image
                       alt={item.name}
                       className="w-full h-full object-cover"
                     />
