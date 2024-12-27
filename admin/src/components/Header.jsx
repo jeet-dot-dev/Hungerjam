@@ -22,29 +22,36 @@ const Header = () => {
         </div>
 
         {/* Dashboard and Icons Section */}
-        <div className="other w-[87%] h-full flex bg-white">
+        <div className="other w-[87%] h-full flex bg-gray-100">
           <div className="dashboard h-full w-[75%] flex items-center justify-between">
             <div className="dashboard-title ml-6">
               <h1 className="font-bold text-2xl text-gray-800 tracking-wide flex items-center">
                 <span className="bg-gradient-to-r from-orange-100 to-orange-50 px-3 py-2 rounded-xl mr-3 shadow-sm">
-                  <img 
-                    src="https://cdn-icons-png.flaticon.com/512/6292/6292175.png" 
-                    alt="" 
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/6292/6292175.png"
+                    alt=""
                     className="w-6 h-6 hover:rotate-12 transition-transform"
                   />
                 </span>
                 Dashboard
               </h1>
             </div>
+
+            
+
             <div className="icons flex w-[200px] items-center justify-between m-4 relative">
               <div className="icon-container relative hover:transform hover:scale-110 transition-all">
-                <div className="notification-popup ml-2 bg-[#ffb701] ring-2 ring-white">3</div>
+                <div className="notification-popup ml-2 bg-[#ffb701] ring-2 ring-white">
+                  3
+                </div>
                 <a href="">
                   <FaBell className="w-5 h-5 text-zinc-700 hover:text-[#ffb701]" />
                 </a>
               </div>
               <div className="icon-container relative hover:transform hover:scale-110 transition-all">
-                <div className="notification-popup ml-2 bg-red-400 ring-2 ring-white">5</div>
+                <div className="notification-popup ml-2 bg-red-400 ring-2 ring-white">
+                  5
+                </div>
                 <a href="">
                   <LuMessageSquare className="w-5 h-5 text-zinc-700 hover:text-red-400" />
                 </a>
@@ -55,7 +62,9 @@ const Header = () => {
                 </a>
               </div>
               <div className="icon-container relative hover:transform hover:scale-110 transition-all">
-                <div className="notification-popup ml-2 bg-pink-400 ring-2 ring-white">8</div>
+                <div className="notification-popup ml-2 bg-pink-400 ring-2 ring-white">
+                  8
+                </div>
                 <a href="">
                   <GiFoodTruck className="w-5 h-5 text-zinc-700 hover:text-pink-400" />
                 </a>

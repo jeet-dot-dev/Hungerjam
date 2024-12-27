@@ -7,7 +7,7 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "Hungerjam",
-    allowed_formats: ["jpg", "png", "jpeg"], // File formats allowed
+    allowed_formats: [], // File formats allowed
   },
 });
 

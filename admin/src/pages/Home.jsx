@@ -38,7 +38,7 @@ const Home = () => {
   return (
     <>
       <ToastContainer position="top-right" className="mt-16" />
-      <div className="h-screen w-full bg-gray-50">
+      <div className="h-screen w-full bg-gray-900">
         <div 
           className="p-6 overflow-y-auto h-full"
           style={{
@@ -55,7 +55,7 @@ const Home = () => {
                
                 <div
                   key={index}
-                  className="food-item bg-white shadow-md rounded-lg overflow-hidden transform transition hover:scale-105 h-[400px] flex flex-col"
+                  className="food-item bg-[#202938] shadow-md rounded-lg overflow-hidden transform transition hover:scale-105 h-[400px] flex flex-col"
                 >
                   <div className="h-40 w-full bg-gray-100 flex-shrink-0">
                     <img
@@ -66,10 +66,10 @@ const Home = () => {
                   </div>
                   <div className="flex flex-col flex-grow p-4 justify-between">
                     <div>
-                      <h1 className="text-lg font-bold text-gray-800 truncate">
+                      <h1 className="text-lg font-bold text-white truncate">
                         {item.name}
                       </h1>
-                      <h4 className="text-sm text-gray-600 line-clamp-2 mt-1">
+                      <h4 className="text-sm text-gray-50 line-clamp-2 mt-1">
                         {item.description}
                       </h4>
                       <div className="rating flex items-center gap-1 mt-2">

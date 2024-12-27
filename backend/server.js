@@ -3,6 +3,7 @@ import cors from 'cors'
 import 'dotenv/config.js'
 import connectDB from './config/dbConnect.js';
 import foodRoute from './routers/food_router.js';
+import userRoute from './routers/user_router.js';
 import bodyParser from 'body-parser';
 
 //app config
@@ -21,6 +22,9 @@ app.use(express.json());
 
 //api endpoints
 app.use("/api/food",foodRoute);
+
+//api endpoint for user
+app.use("/api/user",userRoute);
 
 //start the server
 app.listen(port,()=>{
