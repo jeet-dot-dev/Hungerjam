@@ -6,6 +6,7 @@ import Footer from "../components/Footer"; // Footer component
 import { FaCartPlus } from "react-icons/fa"; // Icon for adding items to cart
 import { FaEye } from "react-icons/fa"; // Icon for viewing item details
 import { motion } from "framer-motion"; // Library for animations
+import { haddleError, haddleSuccess } from "../Utils/Toastify";
 
 const Menu = () => {
   const [sortfoodType, setSortfoodType] = useState("Default Sort");
@@ -66,10 +67,20 @@ const Menu = () => {
     return stars;
   };
 
+  //handleonclick
+  const handleonclick = (item)=>{
+   console.log(item);
+  }
+
+  //handdleLogin
+  const handdleLogin = ()=>{
+    haddleError("To add a item in cart You must have an account !");
+  }
+
   return (
     <>
       {/* Main Container */}
-      <div className="bg-gray-900 flex flex-col -z-10">
+      <div className="bg-gray-900 flex flex-col -z-10 mt-36">
         {/* Header Divider */}
         <hr className="h-[10px] w-full bg-[#ffb701]" />
 
@@ -130,7 +141,7 @@ const Menu = () => {
                       whileHover={{ opacity: 1, y: 0 }} // Animation on hover
                       transition={{ duration: 0.3 }}
                     >
-                      <FaCartPlus className="text-3xl cursor-pointer mx-2 hover:text-[#ffb701]" />
+                      <FaCartPlus onClick={localStorage.token?()=>handleonclick(item):()=>handdleLogin()} className="text-3xl cursor-pointer mx-2 hover:text-[#ffb701]" />
                       <FaEye className="text-3xl cursor-pointer mx-2 hover:text-[#ffb701]" />
                     </motion.div>
                   </div>

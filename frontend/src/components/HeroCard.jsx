@@ -53,7 +53,7 @@ const HeroCard = () => {
          transition={{duration:1,ease:"easeIn"}}
         >
         <span className="h-[50px] bg-[#ffb701] inline-block px-5 py-3 hover:bg-zinc-700 hover:text-white  duration-500 rounded-lg cursor-pointer text-[18px]">
-          <Link to='/explore'>Explore More</Link>
+          <Link to='/menu'>Explore More</Link>
         </span>
         </motion.div>
       </div>

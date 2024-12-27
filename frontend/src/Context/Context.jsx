@@ -5,6 +5,7 @@ export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
     const [food_list, set_food_list] = useState([]);
+    const [token,setToken] = useState("");
     const url = "http://localhost:3000";
 
     const fetchFoodList = async () => {
@@ -21,13 +22,21 @@ const StoreContextProvider = (props) => {
     };
 
     useEffect(() => {
-        fetchFoodList();
+       async function  loadData() {
+        await  fetchFoodList();
+        if(localStorage.getItem("token")){
+            setToken(localStorage.getItem("token"));
+        }
+       }
+       loadData();
     }, []);
 
     const contextValue = {
         food_list,
         url,
-        fetchFoodList
+        fetchFoodList,
+        token,
+        setToken
     };
 
     return (

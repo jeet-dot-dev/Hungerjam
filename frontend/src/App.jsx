@@ -8,6 +8,8 @@ import HeroCard from "./components/HeroCard";
 import Home from './Pages/Home'
 import Menu from './Pages/Menu'
 import Footer from "./components/Footer";
+import Login from "./Pages/Login";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   const [show, setShow] = useState(true);
@@ -18,18 +20,23 @@ const App = () => {
 
 
   return (
-    <div className=" w-screen h-[10px] flex flex-col ">
-      <motion.div className={`w-screen  h-[50px] fixed`}>
-        {show ? <Popup /> : <></>}
-        <Navbar show={show} scrollValue={scrollValue} />
-      </motion.div>
-      <HeroCard />
-      <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/menu' element={<Menu/>}/>
-      </Routes>
-    
-    </div>
+    <>
+  
+     <div className=" w-screen h-[10px] flex flex-col ">
+       
+       <motion.div className={`w-screen  h-[50px] fixed`}>
+         {show ? <Popup /> : <></>}
+         <Navbar show={show} scrollValue={scrollValue} />
+       </motion.div>
+      
+       <Routes>
+         <Route path='/' element={<Home/>}/>
+         <Route path='/menu' element={<Menu/>}/>
+         <Route path='/login' element={<Login/>}/>
+       </Routes>
+      
+     </div>
+    </>
   );
 };
 

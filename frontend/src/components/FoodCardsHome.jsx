@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const FoodCardsHome = () => {
   const foodItems = [
@@ -118,7 +119,7 @@ const FoodCardsHome = () => {
                 }}
                 className="relative py-2 px-6 font-semibold text-white rounded-lg bg-[#ff6f61] overflow-hidden"
               >
-                Explore More
+               <Link to='/menu'> Explore More</Link>
               </motion.button>
             </div>
           </motion.div>

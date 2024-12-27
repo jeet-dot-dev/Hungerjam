@@ -6,10 +6,13 @@ import FoodCardsHome from '../components/FoodCardsHome'
 import BannerLogo from '../components/BannerLogo'
 import DeliverySection from "../components/DeliverySection";
 import Footer from "../components/Footer";
+import HeroCard from "../components/HeroCard";
 
 const Hero = () => {
+   console.log(localStorage.loggedInuser);
   return (
     <>
+      <HeroCard />
       <div className="sec1 w-full h-[1000px] -z-10">
         <div className="home w-full h-[450px]  flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white">
           {/* Left Section with Text */}

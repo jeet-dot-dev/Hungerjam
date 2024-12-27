@@ -1,5 +1,8 @@
 import React, { useState } from "react";
+import '../css/HomeCard.css';
 import { motion } from "framer-motion";
+import { FaOpencart } from "react-icons/fa6";
+import { CgProfile } from "react-icons/cg";
 import {
   MdOutlineRestaurantMenu,
   MdPhonelinkRing,
@@ -69,9 +72,19 @@ const Navbar = ({ show,scrollValue}) => {
         ))}
       </div>
       <div className="btn text-white ml-36">
-        <span className="h-[50px] bg-[#ffb701] inline-block px-5 py-3 hover:bg-zinc-700 hover:text-white  duration-500 rounded-lg cursor-pointer text-[18px]">
-          <Link to='/menu'>Order Now</Link>
+       <div className="flex justify-center items-center gap-10">
+       <span className="h-[50px] bg-[#ffb701] inline-block px-5 py-3 hover:bg-zinc-700 hover:text-white  duration-500 rounded-lg cursor-pointer text-[18px]">
+          <Link to='/cart'><div className="flex justify-center items-center gap-2 ">
+          <p className="luxurious-script-regular text-[22px]">Cart</p> 
+          <FaOpencart className="text-[22px]"></FaOpencart>
+            </div></Link>
         </span>
+        {localStorage.token&&<>
+       <Link to='/profile' >
+       <CgProfile className="text-[30px]"></CgProfile>
+       </Link>
+        </>}
+       </div>
       </div>
     </div>
   );

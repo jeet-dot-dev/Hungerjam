@@ -57,12 +57,12 @@ const addUser = async (req, res) => {
     }).save();
 
     // Construct verification email URL
-    const url = `${process.env.BASE_URL}api/user/signin/${user._id}/verify/${email_token.token}`;
+    const url = `${process.env.BASE_URL}api/user/signup/${user._id}/verify/${email_token.token}`;
     await mailfunc(user.email, "Verify Email", url);
 
     res.json({
       success: true,
-      token,
+      
       message: "An email has been sent to your account. Please verify it.",
     });
   } catch (error) {
@@ -103,24 +103,30 @@ const loginUser = async (req, res) => {
 
       // If no token exists, generate a new one
       if (!token) {
-        const token = await new Token({
+        token = await new Token({
           userID: user._id,
           token: crypto.randomBytes(32).toString("hex"),
         }).save();
 
         // Construct verification email URL
-        const url = `${process.env.BASE_URL}api/user/signin/${user._id}/verify/${token.token}`;
+        const url = `${process.env.BASE_URL}api/user/signup/${user._id}/verify/${token.token}`;
         await mailfunc(user.email, "Verify Email", url);
       }
 
-      return res
-        .status(400)
-        .send({ message: "An email has been sent to your account. Please verify it." });
+      return res.status(400).json({
+        success: false,
+        message: "An email has been sent to your account. Please verify it.",
+      });
     }
 
     // Generate a JWT token
     const token = createToken(user._id);
-    res.json({ success: true, token });
+    return res.json({
+      success: true,
+      token,
+      name: user.firstName,
+      message: "Email verified successfully. You have successfully logged in! Welcome.",
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Internal Server Error" });
