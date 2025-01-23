@@ -1,6 +1,6 @@
 import User from "../models/userSchema.js";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import validator from "validator";
 import Token from "../models/tokenSchema.js";
 import mailfunc from "../config/Emailsend.js";
