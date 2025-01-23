@@ -170,5 +170,31 @@ const tokenVerify = async (req, res) => {
   }
 };
 
+
+//getdata
+const getdata = async(req,res)=>{
+   try {
+    
+     const data = await User.find({});
+    //  console.log(data);
+     if(data){
+      return res.json({
+        success: true,
+        data,
+        
+        message: "Successfully get the data ",
+      });
+     }
+     return res.json({
+      success: false,
+        
+        message: "Not get the data ",
+     })
+   } catch (error) {
+    console.log(error)
+    res.status(500).send({ message: "Internal Server Error" });
+   }
+}
+
 // Exporting the user controller functions
-export { addUser, tokenVerify, loginUser };
+export { addUser, tokenVerify, loginUser,getdata };

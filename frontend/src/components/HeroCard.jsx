@@ -4,10 +4,10 @@ import "../css/HomeCard.css";
 import { Link } from "react-router-dom";
 
 const HeroCard = () => {
-  const animation = () => {};
+ 
 
   return (
-    <div onMouseEnter={animation} className="w-full h-[700px]   -z-10 ">
+    <div  className="w-full h-[700px]   -z-10 ">
       <img
         src="https://demo.themexbd.com/html/sk/foodx/assets/images/fx_slider_2.jpg"
         className="object-cover w-full h-full"
@@ -19,6 +19,7 @@ const HeroCard = () => {
           initial={{ x: -550, opacity:0 }}
           animate={{ x: 50 ,opacity:1 }}
           transition={{ duration: 1.3, type: "spring" }}
+          
         >
           Food&Adda
         </motion.p>

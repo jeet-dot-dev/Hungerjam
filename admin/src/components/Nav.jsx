@@ -50,7 +50,7 @@ const Nav = () => {
         <div className="menu-box w-full h-[60px] flex items-center justify-center gap-3 p-2 rounded-full">
           <span className="icon"><CgProfile /></span>
           <NavLink 
-            to="/customers" 
+            to="/customer" 
             className={({ isActive }) => isActive ? 'active' : ''}
           >
             Customers

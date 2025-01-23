@@ -75,7 +75,7 @@ const Navbar = ({ show,scrollValue}) => {
        <div className="flex justify-center items-center gap-10">
        <span className="h-[50px] bg-[#ffb701] inline-block px-5 py-3 hover:bg-zinc-700 hover:text-white  duration-500 rounded-lg cursor-pointer text-[18px]">
           <Link to='/cart'><div className="flex justify-center items-center gap-2 ">
-          <p className="luxurious-script-regular text-[22px]">Cart</p> 
+          <p className="roboto text-[22px]">Cart</p> 
           <FaOpencart className="text-[22px]"></FaOpencart>
             </div></Link>
         </span>

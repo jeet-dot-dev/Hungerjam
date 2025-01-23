@@ -4,11 +4,11 @@ import 'dotenv/config.js'
 import connectDB from './config/dbConnect.js';
 import foodRoute from './routers/food_router.js';
 import userRoute from './routers/user_router.js';
+//import cartRoute  from './routers/cart_Route.js';
 import bodyParser from 'body-parser';
 
 //app config
 const app = express();
-const port = 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -26,7 +26,10 @@ app.use("/api/food",foodRoute);
 //api endpoint for user
 app.use("/api/user",userRoute);
 
+//api end point for cart
+//app.use("/api/cart",cartRoute);
+
 //start the server
-app.listen(port,()=>{
+app.listen(process.env.PORT||3000,()=>{
     console.log("I am listing");
 })

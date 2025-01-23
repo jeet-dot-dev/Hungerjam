@@ -84,7 +84,7 @@ const Add = () => {
         rating: "",
       });
     } catch (error) {
-      console.log(error);
+      
     }
   };
 

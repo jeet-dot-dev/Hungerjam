@@ -7,6 +7,7 @@ import Edit from './pages/Edit';
 import Home from './pages/Home';
 import Order from './pages/Order';
 import { ToastContainer} from 'react-toastify';
+import Customer from './pages/Customer';
 
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
             <Route path="/edit" element={<Edit />} />
             <Route path="/" element={<Home />} />
             <Route path="/order" element={<Order />} />
+            <Route path="/customer" element={<Customer />} />
           </Routes>
         </div>
       </div>
