@@ -79,9 +79,9 @@ const Navbar = ({ show,scrollValue}) => {
           <FaOpencart className="text-[22px]"></FaOpencart>
             </div></Link>
         </span>
-        {localStorage.token&&<>
+        {localStorage.userStored&&<>
        <Link to='/profile' >
-       <CgProfile className="text-[30px]"></CgProfile>
+       <CgProfile className="text-[30px] mr-10"></CgProfile>
        </Link>
         </>}
        </div>

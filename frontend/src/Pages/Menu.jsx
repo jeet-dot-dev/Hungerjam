@@ -141,7 +141,7 @@ const Menu = () => {
                       whileHover={{ opacity: 1, y: 0 }} // Animation on hover
                       transition={{ duration: 0.3 }}
                     >
-                      <FaCartPlus onClick={localStorage.token?()=>handleonclick(item):()=>handdleLogin()} className="text-3xl cursor-pointer mx-2 hover:text-[#ffb701]" />
+                      <FaCartPlus onClick={localStorage.userStored?()=>handleonclick(item):()=>handdleLogin()} className="text-3xl cursor-pointer mx-2 hover:text-[#ffb701]" />
                       <FaEye className="text-3xl cursor-pointer mx-2 hover:text-[#ffb701]" />
                     </motion.div>
                   </div>

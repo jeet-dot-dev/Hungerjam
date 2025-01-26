@@ -5,12 +5,12 @@ dotenv.config(); // Load environment variables
 
 const url = process.env.MONGODB_URI; // Ensure MONGODB_URI is set in your .env file
 
-console.log(url);
+
 
 const connectDB = async () => {
   try {
     await mongoose.connect(
-      "mongodb+srv://jeet124:tmkLghrl9YRYiKll@cluster0.vhwo1.mongodb.net/adda"
+      url
     ); // No need for deprecated options
     console.log("Database is connected");
   } catch (err) {

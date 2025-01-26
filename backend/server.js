@@ -7,10 +7,15 @@ import userRoute from './routers/user_router.js';
 //import cartRoute  from './routers/cart_Route.js';
 import bodyParser from 'body-parser';
 
+
+
+
+
 //app config
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 
 
 //database connection
