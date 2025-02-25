@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
+// MenuLine component to display menu items with images and selection functionality
 const MenuLine = ({ onMenuSelect }) => {
+  // State to manage menu items data
   const [menuItems] = useState([
     {
       id: 6,
@@ -40,19 +42,24 @@ const MenuLine = ({ onMenuSelect }) => {
     },
   ]);
 
+  // State to track the currently selected menu item
   const [selectedValue, setSelectedValue] = useState(null);
 
+  /**
+   * Handle click on a menu item
+   * Sets the selected item and passes the selection to the parent component
+   */
   const handleClick = (item) => {
     setSelectedValue(item.name);
-    onMenuSelect(item.name); // Pass the selected value to the parent component
+    onMenuSelect(item.name); // Notify parent component of selection
   };
 
   return (
-    <div className="line w-[70%]  flex items-center justify-center gap-14 p-4 rounded-lg shadow-lg">
+    <div className="line w-[70%] flex items-center justify-center gap-14 p-4 rounded-lg shadow-lg">
       {menuItems.map((item) => (
         <div
           key={item.id}
-          className="img1 w-[100px] h-[150px] flex justify-center items-center flex-col cursor-pointer "
+          className="img1 w-[100px] h-[150px] flex justify-center items-center flex-col cursor-pointer"
           onClick={() => handleClick(item)}
         >
           <img
@@ -60,8 +67,8 @@ const MenuLine = ({ onMenuSelect }) => {
             alt={item.name}
             className={`w-[90px] h-[90px] rounded-full transition-all duration-200 ${
               selectedValue === item.name
-                ? "border-4 border-yellow-500"
-                : "border-2 border-gray-100"
+                ? "border-4 border-yellow-500" // Highlight selected item
+                : "border-2 border-gray-100"   // Default border style
             }`}
           />
           <p className="text-center text-sm text-white font-medium mt-2">

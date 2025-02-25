@@ -12,9 +12,9 @@ import bodyParser from 'body-parser';
 
 
 //app config
-const app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+    const app = express();
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: true }));
 
 
 

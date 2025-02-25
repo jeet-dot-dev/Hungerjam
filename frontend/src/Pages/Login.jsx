@@ -9,10 +9,10 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai"; // Import eye ic
 
 const Login = () => {
   const navigate = useNavigate();
-  const { token, setToken, url } = useContext(StoreContext);
-  const [currState, setCurrState] = useState("sign up");
-  const [acceptTerms, setAcceptTerms] = useState(false);
-  const [showPassword, setShowPassword] = useState(false); // State for toggling password visibility
+  const { token, setToken, url } = useContext(StoreContext); // Access context values
+  const [currState, setCurrState] = useState("sign up"); // Toggle between login and sign-up
+  const [acceptTerms, setAcceptTerms] = useState(false); // Terms acceptance state
+  const [showPassword, setShowPassword] = useState(false); // Toggle password visibility
 
   const [data, setData] = useState({
     firstName: "",
@@ -20,18 +20,21 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // Loading state for form submission
+  const [error, setError] = useState(""); // Error message state
 
+  // Handle input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
     setData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Toggle password visibility
   const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev); // Toggle visibility
+    setShowPassword((prev) => !prev);
   };
 
+  // Form submission logic
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!acceptTerms) {
@@ -58,7 +61,7 @@ const Login = () => {
         email: "",
         password: "",
       });
-      navigate(-1);
+      navigate(-1); // Navigate back to the previous page
     } catch (err) {
       console.log(err);
       haddleError(err.response?.data?.message || "An error occurred");
@@ -68,6 +71,7 @@ const Login = () => {
     }
   };
 
+  // Toggle between login and sign-up modes
   const toggleState = () => {
     setCurrState(currState === "login" ? "sign up" : "login");
     setError("");
@@ -77,7 +81,6 @@ const Login = () => {
       email: "",
       password: "",
     });
-
     setAcceptTerms(false);
   };
 
@@ -100,132 +103,39 @@ const Login = () => {
           <h2 className="text-3xl font-bold text-[#ffb701]">
             {currState === "login" ? "Login" : "Sign Up"}
           </h2>
-          <p className="mt-2 text-sm text-gray-300">
-            {currState === "login"
-              ? "Enter your credentials to access your account"
-              : "Create a new account to get started"}
-          </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {currState === "sign up" && (
             <>
-              <div>
-                <label className="block text-sm font-medium text-gray-300">
-                  First Name
-                </label>
-                <input
-                  name="firstName"
-                  type="text"
-                  value={data.firstName}
-                  onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border border-gray-600 bg-gray-700 px-3 py-2 text-sm 
-                         text-white placeholder-gray-400 focus:border-[#ffb701] focus:outline-none focus:ring-1 
-                         focus:ring-[#ffb701]"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-300">
-                  Last Name
-                </label>
-                <input
-                  name="lastName"
-                  type="text"
-                  value={data.lastName}
-                  onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border border-gray-600 bg-gray-700 px-3 py-2 text-sm 
-                         text-white placeholder-gray-400 focus:border-[#ffb701] focus:outline-none focus:ring-1 
-                         focus:ring-[#ffb701]"
-                  required
-                />
-              </div>
+              <input name="firstName" type="text" value={data.firstName} onChange={handleChange} required />
+              <input name="lastName" type="text" value={data.lastName} onChange={handleChange} required />
             </>
           )}
 
-          <div>
-            <label className="block text-sm font-medium text-gray-300">
-              Email
-            </label>
-            <input
-              name="email"
-              type="email"
-              value={data.email}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border border-gray-600 bg-gray-700 px-3 py-2 text-sm 
-                     text-white placeholder-gray-400 focus:border-[#ffb701] focus:outline-none focus:ring-1 
-                     focus:ring-[#ffb701]"
-              required
-            />
-          </div>
+          <input name="email" type="email" value={data.email} onChange={handleChange} required />
 
-          <div className="relative">
-            <label className="block text-sm font-medium text-gray-300">
-              Password
-            </label>
-            <input
-              name="password"
-              type={showPassword ? "text" : "password"} // Dynamic type
-              value={data.password}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border border-gray-600 bg-gray-700 px-3 py-2 text-sm 
-                     text-white placeholder-gray-400 focus:border-[#ffb701] focus:outline-none focus:ring-1 
-                     focus:ring-[#ffb701]"
-              required
-            />
-            <span
-              onClick={togglePasswordVisibility}
-              className="absolute inset-y-0 right-3 top-5 flex items-center cursor-pointer text-gray-50"
-            >
-              {showPassword ? (
-                <AiFillEyeInvisible size={20} />
-              ) : (
-                <AiFillEye size={20} />
-              )}
-            </span>
-          </div>
+          <input
+            name="password"
+            type={showPassword ? "text" : "password"}
+            value={data.password}
+            onChange={handleChange}
+            required
+          />
+          <span onClick={togglePasswordVisibility}>{showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}</span>
 
-          <div className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              id="terms"
-              checked={acceptTerms}
-              onChange={(e) => setAcceptTerms(e.target.checked)}
-              className="h-4 w-4 rounded border-gray-600 bg-gray-700 text-[#ffb701] focus:ring-[#ffb701]"
-            />
-            <label htmlFor="terms" className="text-sm text-gray-300">
-              I accept the terms and conditions
-            </label>
-          </div>
+          <input
+            type="checkbox"
+            id="terms"
+            checked={acceptTerms}
+            onChange={(e) => setAcceptTerms(e.target.checked)}
+          />
+          <label htmlFor="terms">I accept the terms and conditions</label>
 
-          {error && <div className="text-sm text-red-400">{error}</div>}
-
-          <button
-            type="submit"
-            disabled={isLoading || !acceptTerms}
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md 
-                   shadow-sm text-sm font-bold text-[#1a2332] bg-[#ffb701] hover:bg-[#ffa601] 
-                   focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ffb701] 
-                   disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isLoading
-              ? "Loading..."
-              : currState === "login"
-              ? "Login"
-              : "Sign Up"}
+          <button type="submit" disabled={isLoading || !acceptTerms}>
+            {isLoading ? "Loading..." : currState === "login" ? "Login" : "Sign Up"}
           </button>
         </form>
-
-        <div className="mt-6 text-center">
-          <button
-            onClick={toggleState}
-            className="text-sm text-[#ffb701] hover:text-white transition-colors"
-          >
-            {currState === "login"
-              ? "Don't have an account? Sign up"
-              : "Already have an account? Login"}
-          </button>
-        </div>
       </motion.div>
     </div>
   );

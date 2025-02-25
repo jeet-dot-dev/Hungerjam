@@ -1,79 +1,32 @@
 import User from "../models/userSchema.js";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";
-import validator from "validator";
-import Token from "../models/tokenSchema.js";
-import mailfunc from "../config/Emailsend.js";
-import crypto from "crypto";
 
 ///////////////////////////////// ------------ addUser ------------------------- /////////////////////////////////////////////////////////////////////
 
 const signup = async (req, res) => {
-    const { email, name, picture } = req.body;
+  const { email, name, picture } = req.body;
 
-    if (!email || !name || !picture) {
-        return res.status(400).json({ message: 'All fields are required' });
+  if (!email || !name || !picture) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  try {
+    const existingUser = await User.findOne({ email });
+    // console.log(existingUser);
+
+    if (!existingUser) {
+      const newUser = new User({ email, name, picture });
+      await newUser.save();
+      return res.status(201).json({ message: "Account created successfully" });
     }
 
-    try {
-        const existingUser = await User.findOne({ email });
-       // console.log(existingUser);
-
-        if (!existingUser) {
-            const newUser = new User({ email, name, picture });
-            await newUser.save();
-            return res.status(201).json({ message: 'Account created successfully' });
-        }
-
-        return res.status(200).json({ message: 'You logged in successfully' });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Failed to store user', error });
-    }
+    return res.status(200).json({ message: "You logged in successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to store user", error });
+  }
 };
 
-
 export default signup;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // // Function to create a JWT token for a user
 // const createToken = (id) => {
@@ -129,7 +82,7 @@ export default signup;
 
 //     res.json({
 //       success: true,
-      
+
 //       message: "An email has been sent to your account. Please verify it.",
 //     });
 //   } catch (error) {
@@ -138,14 +91,7 @@ export default signup;
 //   }
 // };
 
-
-
 // ///////////////////////////////// ------------ loginUser ------------------------- //////////////////////////////////////////////////////
-
-
-
-
-
 
 // // Log in an existing user
 // const loginUser = async (req, res) => {
@@ -200,14 +146,7 @@ export default signup;
 //   }
 // };
 
-
-
 // ///////////////////////////////// ------------ tokenVerify ------------------------- //////////////////////////////////////////////////////
-
-
-
-
-
 
 // // Verify the email token and activate the user account
 // const tokenVerify = async (req, res) => {
@@ -236,7 +175,6 @@ export default signup;
 //     res.status(500).send({ message: "Internal Server Error" });
 //   }
 // };
-
 
 // //getdata
 // const getdata = async (req, res) => {

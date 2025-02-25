@@ -25,7 +25,7 @@ const Navbar = ({ show,scrollValue}) => {
 
   return (
     <div
-      className={`w-full h-[100px] z-50  fixed ${
+      className={`w-full h-[100px]   fixed ${
         show ? "mt-[50px]" : ""
       } ${scrollValue*100>1 ?"bg-[#000] opacity-60" : "bg-black"} flex items-center justify-start gap-10`}
     >

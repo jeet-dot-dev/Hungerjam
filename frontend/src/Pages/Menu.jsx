@@ -80,7 +80,7 @@ const Menu = () => {
   return (
     <>
       {/* Main Container */}
-      <div className="bg-gray-900 flex flex-col -z-10 mt-36">
+      <div className="bg-gray-900 flex flex-col  mt-36 ">
         {/* Header Divider */}
         <hr className="h-[10px] w-full bg-[#ffb701]" />
 
@@ -92,7 +92,7 @@ const Menu = () => {
         </div>
 
         {/* Food Items Section */}
-        <div className="item w-full py-8 bg-gray-900">
+        <div className="item w-full py-8 bg-gray-900 z-10">
           {currentItems.length > 0 ? (
             <div className="flex flex-wrap justify-center m-5">
               {currentItems.map((item, index) => (
@@ -134,7 +134,7 @@ const Menu = () => {
                       </span>
                     </div>
 
-                    {/* Hover Effect for Icons */}
+                    Hover Effect for Icons
                     <motion.div
                       className="icons flex items-center justify-center absolute top-0 left-0 right-0 bottom-0 bg-opacity-60 bg-black"
                       initial={{ opacity: 0, y: -50 }} // Initial animation state

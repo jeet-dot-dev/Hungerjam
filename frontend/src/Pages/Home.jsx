@@ -9,7 +9,6 @@ import Footer from "../components/Footer";
 import HeroCard from "../components/HeroCard";
 
 const Hero = () => {
-   console.log(localStorage.loggedInuser);
   return (
     <>
       <HeroCard />

@@ -59,7 +59,7 @@ const DeliverySection = () => {
         />
         <img
           src="https://foodking-react.vercel.app/assets/img/shape/arrow-shape.png"
-          className="absolute bottom-10 left-[30%] opacity-50 w-[150px] -z-30"
+          className="absolute bottom-10 left-[30%] opacity-50 w-[150px] "
           alt="Arrow Shape"
         />
       </div>
