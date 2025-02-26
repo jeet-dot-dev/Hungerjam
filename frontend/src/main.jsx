@@ -11,13 +11,13 @@ import { Auth0Provider } from '@auth0/auth0-react';
 // Root render method with Auth0, Context, Router, and Toast setup
 createRoot(document.getElementById('root')).render(
   <Auth0Provider
-    domain='dev-vmhvceggr7jk1uzx.us.auth0.com'
-    clientId={import.meta.env.VITE_CLIENT_ID}
-    authorizationParams={{
-      redirect_uri: window.location.origin,
-      audience: import.meta.env.VITE_AUDIENCE_URL,
-    }}
-  >
+  domain={import.meta.env.VITE_DOMAIN}
+  clientId={import.meta.env.VITE_CLIENT_ID}
+  authorizationParams={{
+    redirect_uri: window.location.origin,
+    audience:import.meta.env.VITE_AUDIENCE_URL
+  }}
+> 
     <StoreContextProvider>
       <BrowserRouter>
         <StrictMode>

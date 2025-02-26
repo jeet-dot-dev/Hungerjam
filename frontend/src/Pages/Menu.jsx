@@ -7,9 +7,18 @@ import { FaCartPlus } from "react-icons/fa"; // Icon for adding items to cart
 import { FaEye } from "react-icons/fa"; // Icon for viewing item details
 import { motion } from "framer-motion"; // Library for animations
 import { haddleError, haddleSuccess } from "../Utils/Toastify";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Menu = () => {
   const [sortfoodType, setSortfoodType] = useState("Default Sort");
+
+   const {
+      loginWithRedirect,
+      user,
+      isAuthenticated,
+      logout,
+      getAccessTokenSilently,
+    } = useAuth0();
 
   // State for currently selected menu category
   const [onMenuSelect, setonMenuSelect] = useState("All");
@@ -75,6 +84,7 @@ const Menu = () => {
   //handdleLogin
   const handdleLogin = ()=>{
     haddleError("To add a item in cart You must have an account !");
+    loginWithRedirect();
   }
 
   return (
@@ -141,7 +151,7 @@ const Menu = () => {
                       whileHover={{ opacity: 1, y: 0 }} // Animation on hover
                       transition={{ duration: 0.3 }}
                     >
-                      <FaCartPlus onClick={localStorage.userStored?()=>handleonclick(item):()=>handdleLogin()} className="text-3xl cursor-pointer mx-2 hover:text-[#ffb701]" />
+                      <FaCartPlus onClick={isAuthenticated?()=>handleonclick(item):()=>handdleLogin()} className="text-3xl cursor-pointer mx-2 hover:text-[#ffb701]" />
                       <FaEye className="text-3xl cursor-pointer mx-2 hover:text-[#ffb701]" />
                     </motion.div>
                   </div>

@@ -34,6 +34,7 @@ const Popup = () => {
       if (isAuthenticated && !localStorage.getItem("userStored")) {
         try {
           const token = await getAccessTokenSilently(); // Get Auth0 token
+          console.log("token:",token);
           const response = await axios.post(
             `${url}/api/user/signup`,
             {
