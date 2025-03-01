@@ -1,5 +1,5 @@
 import User from "../models/userSchema.js";
-
+import jwt from "jsonwebtoken";
 ///////////////////////////////// ------------ addUser ------------------------- /////////////////////////////////////////////////////////////////////
 
 const signup = async (req, res) => {
@@ -12,9 +12,15 @@ const signup = async (req, res) => {
   try {
     const existingUser = await User.findOne({ email });
     // console.log(existingUser);
-
+    const token = req.headers.authorization?.split(" ")[1]; // Extract the token from 'Bearer <token>'
     if (!existingUser) {
-      const newUser = new User({ email, name, picture });
+      const decodedToken = jwt.decode(token); // Use jwt.verify if you have the secret or public key
+      console.log("Decoded Token:", decodedToken);
+
+      // Now you can access the user's data from the token payload
+      const userId = decodedToken?.sub; // Typically, Auth0 uses 'sub' for the user ID
+      console.log("User ID:", userId);
+      const newUser = new User({ email, name, picture ,auth0UserId:userId});
       await newUser.save();
       return res.status(201).json({ message: "Account created successfully" });
     }

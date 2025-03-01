@@ -1,6 +1,5 @@
 import Joi from "joi";
-
-const addressValidationSchema = Joi.object({
+ const addressValidationSchema = Joi.object({
   firstname: Joi.string().min(2).max(50).required().messages({
     "string.empty": "First name is required.",
     "string.min": "First name must be at least 2 characters long.",
@@ -42,23 +41,25 @@ const addressValidationSchema = Joi.object({
   instructions: Joi.string().allow("").max(500).messages({
     "string.max": "Instructions must not exceed 500 characters.",
   }),
-  deliveryTime: Joi.string().allow("", null).messages({
+  deliveryTime: Joi.string().allow("").messages({
     "string.base": "Delivery time must be a string.",
+  }),
+  user: Joi.string().required().messages({
+    "string.empty": "User ID is required.",
   }),
 });
 
 const validateAddress = (req, res, next) => {
-  console.log("Request Body:", req.body); // Debug log to see incoming data
   const { error } = addressValidationSchema.validate(req.body, { abortEarly: false });
 
   if (error) {
-    console.log("Validation Errors:", error.details); // Debug log for validation issues
-    return res.status(400).json({
-      errors: error.details.map((err) => err.message),
+    // Send a response with all validation errors
+    return res.status(400).json({ 
+      errors: error.details.map((err) => err.message) 
     });
   }
 
-  next(); // Proceed if validation is successful
+  next(); // Proceed to the next middleware or route handler
 };
 
 export default validateAddress;
