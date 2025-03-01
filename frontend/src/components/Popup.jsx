@@ -34,7 +34,7 @@ const Popup = () => {
       if (isAuthenticated && !localStorage.getItem("userStored")) {
         try {
           const token = await getAccessTokenSilently(); // Get Auth0 token
-          console.log("token:",token);
+          //console.log("token:",token);
           const response = await axios.post(
             `${url}/api/user/signup`,
             {
@@ -49,7 +49,7 @@ const Popup = () => {
               },
             }
           );
-          console.log(response);
+          //console.log(response);
           localStorage.setItem("userStored", "true"); // Set the flag
           localStorage.setItem("nickname", user.nickname); // Set the flag
           haddleSuccess(response.data.message);
@@ -66,7 +66,7 @@ const Popup = () => {
     storeUser(); // Store user details
   }, [isAuthenticated, getAccessTokenSilently, user, url]);
 
-  console.log(localStorage.getItem("nickname"));
+  //console.log(localStorage.getItem("nickname"));
   // Welcome message styles
   const welcomeStyles = {
     style1: (
@@ -140,9 +140,7 @@ const Popup = () => {
                 });
 
                 // Removing items from localStorage after logging out
-                localStorage.removeItem("nickname");
-                localStorage.removeItem("userStored");
-
+                localStorage.clear(); // Clear all or specific items
                 haddleSuccess("Logged out successfully!");
               } else {
                 loginWithRedirect(); // Log in if not authenticated

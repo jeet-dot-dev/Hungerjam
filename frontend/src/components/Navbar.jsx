@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import '../css/HomeCard.css';
+import React, { useContext, useState } from "react";
+import "../css/HomeCard.css";
 import { motion } from "framer-motion";
 import { FaOpencart } from "react-icons/fa6";
 import { CgProfile } from "react-icons/cg";
@@ -11,8 +11,9 @@ import {
 } from "react-icons/md";
 import { TiHome } from "react-icons/ti";
 import { Link, NavLink } from "react-router-dom";
+import { StoreContext } from "../Context/Context";
 
-const Navbar = ({ show,scrollValue}) => {
+const Navbar = ({ show, scrollValue }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null); // Track hovered item by index
 
   const menuItems = [
@@ -23,11 +24,14 @@ const Navbar = ({ show,scrollValue}) => {
     { icon: <MdDeliveryDining />, label: "Delivery", path: "/delivery" },
   ];
 
+  //cartcount
+  const { cartItems } = useContext(StoreContext);
+
   return (
     <div
-      className={`w-full h-[100px]   fixed ${
-        show ? "mt-[50px]" : ""
-      } ${scrollValue*100>1 ?"bg-[#000] opacity-60" : "bg-black"} flex items-center justify-start gap-10`}
+      className={`w-full h-[100px]   fixed ${show ? "mt-[50px]" : ""} ${
+        scrollValue * 100 > 1 ? "bg-[#000] opacity-60" : "bg-black"
+      } flex items-center justify-start gap-10`}
     >
       <div className="logo h-20 rounded-full m-2">
         <img
@@ -72,19 +76,28 @@ const Navbar = ({ show,scrollValue}) => {
         ))}
       </div>
       <div className="btn text-white ml-36">
-       <div className="flex justify-center items-center gap-10">
-       <span className="h-[50px] bg-[#ffb701] inline-block px-5 py-3 hover:bg-zinc-700 hover:text-white  duration-500 rounded-lg cursor-pointer text-[18px]">
-          <Link to='/cart'><div className="flex justify-center items-center gap-2 ">
-          <p className="roboto text-[22px]">Cart</p> 
-          <FaOpencart className="text-[22px]"></FaOpencart>
-            </div></Link>
-        </span>
-        {localStorage.userStored&&<>
-       <Link to='/profile' >
-       <CgProfile className="text-[30px] mr-10"></CgProfile>
-       </Link>
-        </>}
-       </div>
+        <div className="flex justify-center items-center gap-10">
+          <Link to="/cart">
+            <span className="relative h-[50px] bg-[#ffb701] inline-block px-5 py-3 hover:bg-zinc-700 hover:text-white duration-500 rounded-lg cursor-pointer text-[18px]">
+              <div className="flex justify-center items-center gap-2">
+                <p className="roboto text-[22px]">Cart</p>
+                <FaOpencart className="text-[22px]" />
+                {cartItems.length > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[14px] w-6 h-6 flex items-center justify-center rounded-full">
+                    {cartItems.length}
+                  </span>
+                )}
+              </div>
+            </span>
+          </Link>
+          {localStorage.userStored && (
+            <>
+              <Link to="/profile">
+                <CgProfile className="text-[30px] mr-10"></CgProfile>
+              </Link>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

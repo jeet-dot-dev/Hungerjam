@@ -79,6 +79,23 @@ const Menu = () => {
   //handleonclick
   const handleonclick = (item)=>{
    console.log(item);
+   let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+   const itemExists = cartItems.some((cartItem)=>cartItem.name === item.name);
+   if(itemExists){
+    haddleError("Already added to the cart!");
+   }else{
+    const newItem = {
+      id:item._id,
+      name : item.name,
+      price : item.price,
+      image : item.imagePaths[4]?.url,
+      qnt : 1,
+    }
+    cartItems.push(newItem);
+    localStorage.setItem("cartItems",JSON.stringify(cartItems));
+    haddleSuccess(`${item.name} added to the cart `);
+    window.location.reload();
+   }
   }
 
   //handdleLogin

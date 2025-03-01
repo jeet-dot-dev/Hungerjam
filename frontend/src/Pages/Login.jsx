@@ -21,7 +21,7 @@ const Login = () => {
     password: "",
   });
   const [isLoading, setIsLoading] = useState(false); // Loading state for form submission
-  const [error, setError] = useState(""); // Error message state
+  const [error, setError] = useState("");// Error message state
 
   // Handle input changes
   const handleChange = (event) => {

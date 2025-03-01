@@ -1,5 +1,7 @@
 import { createContext, useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios';
+import { haddleError, haddleSuccess } from "../Utils/Toastify";
 
 // Create a context for global state management
 export const StoreContext = createContext(null);
@@ -13,6 +15,17 @@ const StoreContextProvider = (props) => {
 
     // Base URL for API requests, fetched from environment variables
     const url = import.meta.env.VITE_API_URL;
+    //storing the cart items 
+    const [cartItems, setCartItems] = useState([]);
+
+    //auth0
+     const {
+        loginWithRedirect,
+        user,
+        isAuthenticated,
+        logout,
+        getAccessTokenSilently,
+      } = useAuth0();
 
     /**
      * Function to fetch the list of food items from the API
@@ -34,8 +47,20 @@ const StoreContextProvider = (props) => {
      * useEffect to fetch the food list when the component is mounted
      * The empty dependency array ensures this runs only once
      */
+
+
+    let fetchcartItems = ()=>{
+        const storedCart = JSON.parse(localStorage.getItem("cartItems")) || []; //array of an obj
+        setCartItems(storedCart);
+    }
+
+  console.log(cartItems);
+
+
+
     useEffect(() => {
         fetchFoodList();
+        fetchcartItems();
     }, []);
 
     /**
@@ -54,7 +79,16 @@ const StoreContextProvider = (props) => {
         url,          // API base URL
         fetchFoodList, // Function to refetch food list
         token,        // Authentication token
-        setToken      // Function to update token
+        setToken,      // Function to update token
+        cartItems ,     //cartitems 
+        setCartItems,
+        loginWithRedirect,
+        user,
+        isAuthenticated,
+        logout,
+        getAccessTokenSilently,
+        haddleError,
+        haddleSuccess
     };
 
     /**

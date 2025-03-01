@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { motion, useScroll } from "framer-motion";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
+import Form from './Pages/Form'
 import Popup from "./components/Popup";
 import Navbar from "./components/Navbar";
 import Home from "./Pages/Home";
 import Menu from "./Pages/Menu";
-import Cart from "./Pages/Cart";
+import CartPage from "./Pages/Cart";
 import { useAuth0 } from "@auth0/auth0-react";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -29,9 +30,9 @@ const App = () => {
   }, [scrollYProgress]);
 
   return (
-    <div className="w-screen flex flex-col ">
+    <div className=" flex flex-col ">
       {/* Fixed Navbar with optional Popup */}
-      <motion.div className="w-screen h-[50px] fixed">
+      <motion.div className="w-screen h-[50px] fixed z-50">
         {show && <Popup />}
         <Navbar show={show} scrollValue={scrollValue} />
       </motion.div>
@@ -44,12 +45,22 @@ const App = () => {
           path="/cart"
           element={
             <ProtectedRoute>
-              <Cart />
+              <CartPage />
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/form"
+          element={
+            <ProtectedRoute>
+              <Form />
+            </ProtectedRoute>
+          }
+        />
+        
       </Routes>
     </div>
+    
   );
 };
 
