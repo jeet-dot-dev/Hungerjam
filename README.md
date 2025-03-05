@@ -55,8 +55,8 @@ HungerJam is a full-stack food ordering and delivery web application designed to
 ## 🔧 How to Run the Project
 ### 1️⃣ Clone the Repository
 ```sh
-git clone https://github.com/goustcoder/coffee-adda.git
-cd coffee-adda
+git clone https://github.com/goustcoder/hungerjam.git
+cd hungerjam
 ```
 
 ### 2️⃣ Setup Backend
