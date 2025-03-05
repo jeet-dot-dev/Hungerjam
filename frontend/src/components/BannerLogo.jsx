@@ -14,21 +14,27 @@ const BannerLogo = () => {
   return (
     <div className="w-full h-[70px] bg-black flex items-center overflow-hidden">
       <motion.div
-        className="flex gap-[25px] whitespace-nowrap" // Flex container for smooth horizontal scroll
+        className="flex gap-[25px] whitespace-nowrap"
         animate={{
-          x: ["0%", "-100%"], // Animate to scroll left out of view
+          x: [0, -logos.length * 200], 
         }}
         transition={{
-          repeat: Infinity, // Loop forever
-          duration: 10, // Adjust speed (seconds)
-          ease: "linear", // Smooth, consistent scrolling
+          repeat: Infinity,
+          duration: 10,
+          ease: "linear",
         }}
-        style={{ display: "flex", width: "calc(200% + 25px)" }} // To account for the duplicated logos
       >
-        {/* Duplicate logos for seamless animation */}
+        {/* Render logos twice for seamless looping */}
         {[...logos, ...logos].map((logo, index) => (
-          <div key={index} className="img flex-shrink-0">
-            <img src={logo} alt={`logo-${index}`} className="h-[50px] w-auto" />
+          <div 
+            key={index} 
+            className="inline-block flex-shrink-0 mx-[12.5px]"
+          >
+            <img 
+              src={logo} 
+              alt={`logo-${index}`} 
+              className="h-[50px] w-auto object-contain" 
+            />
           </div>
         ))}
       </motion.div>
