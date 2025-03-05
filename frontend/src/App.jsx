@@ -10,6 +10,7 @@ import Menu from "./Pages/Menu";
 import CartPage from "./Pages/Cart";
 import { useAuth0 } from "@auth0/auth0-react";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ProfilePage from "./Pages/ProfilePage";
 
 const App = () => {
   const [show, setShow] = useState(true); // Controls popup visibility
@@ -46,6 +47,14 @@ const App = () => {
           element={
             <ProtectedRoute>
               <CartPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <ProfilePage />
             </ProtectedRoute>
           }
         />

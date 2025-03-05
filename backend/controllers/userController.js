@@ -32,7 +32,32 @@ const signup = async (req, res) => {
   }
 };
 
-export default signup;
+
+const getUser = async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1]; // Extract the token from 'Bearer <token>'
+    if (!token) {
+      return res.status(401).json({ message: "Token not found" });
+    }
+
+    const decodedToken = jwt.decode(token); // Decode JWT
+    const userId = decodedToken?.sub;
+
+    const user_data = await User.findOne({ auth0UserId: userId }).populate("address"); // Populate address field
+
+    if (!user_data) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ data: user_data }); // Send full user details with populated address
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ message: "Failed to find user", error });
+  }
+};
+
+
+export  {signup,getUser};
 
 // // Function to create a JWT token for a user
 // const createToken = (id) => {

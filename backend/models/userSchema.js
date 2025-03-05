@@ -9,7 +9,12 @@ const userSchema = new Schema({
   address :{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Address'
-          }
+          },
+  details:{
+    type:Boolean,
+    default:false,
+    
+  }        
  
 });
 

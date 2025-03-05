@@ -35,10 +35,6 @@ const addressSchema = new mongoose.Schema({
   deliveryTime: {
     type: String,
   },
-  user: {
-    type: String,
-    required:true,
-  },
 });
 
 const Address = mongoose.model("Address",addressSchema) ;

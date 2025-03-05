@@ -44,9 +44,6 @@ import Joi from "joi";
   deliveryTime: Joi.string().allow("").messages({
     "string.base": "Delivery time must be a string.",
   }),
-  user: Joi.string().required().messages({
-    "string.empty": "User ID is required.",
-  }),
 });
 
 const validateAddress = (req, res, next) => {

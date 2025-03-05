@@ -47,9 +47,9 @@ const Form = () => {
         }
       )
       haddleSuccess("Address saved successfully");
-      console.log(response);
+      console.log(response.status);
     } catch (error) {
-      haddleError("Oops !");
+      haddleError(error?.response.data.message);
       console.log(error);
     }
 

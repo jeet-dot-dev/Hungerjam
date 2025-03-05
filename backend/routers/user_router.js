@@ -1,7 +1,7 @@
 import express from "express";
 import pkg from 'express-openid-connect';
 const { requiresAuth } = pkg;
-import signup from '../controllers/userController.js';
+import  {signup, getUser } from '../controllers/userController.js';
 import checkJwt from "../middlewares/checkJwt.js";
 import checkJwtMiddleware from "../middlewares/checkJwt.js";
 // import  {addUser,tokenVerify,loginUser,getdata}  from "../controllers/userController.js";
@@ -25,7 +25,8 @@ const userRoute = express.Router();
 // userRoute.get("/data",requiresAuth(),getdata);
 
 
-userRoute.post("/signup",checkJwtMiddleware,signup)
+userRoute.post("/signup",checkJwtMiddleware,signup);
+userRoute.get("/details",getUser);
 
 
 export default userRoute;
