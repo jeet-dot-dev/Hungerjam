@@ -8,7 +8,7 @@ const FoodCardsHome = () => {
   const foodItems = [
     {
       image:
-        "https://maunikagowardhan.co.uk/wp-content/uploads/2014/11/Indo-Chinese-Chilli-Chicken1-1024x683.jpg",
+        "https://res.cloudinary.com/dhdmbwnak/image/upload/v1741249440/Indo-Chinese-Chilli-Chicken1-1024x683_cuwfkk.webp",
       name: "Chili Chicken",
       description:
         "Spicy, savory, and packed with flavor. A must-try for spice lovers!",
@@ -16,15 +16,14 @@ const FoodCardsHome = () => {
     },
     {
       image:
-        "https://www.kitchensanctuary.com/wp-content/uploads/2020/04/Chicken-Fried-Rice-square-FS-.jpg",
+        "https://res.cloudinary.com/dhdmbwnak/image/upload/v1741249439/Chicken-Fried-Rice-square-FS-_fqpgys.webp",
       name: "Fried Rice",
       description:
         "Perfectly fried with a mix of veggies and your choice of protein.",
       rating: 4.2,
     },
     {
-      image:
-        "https://spicecravings.com/wp-content/uploads/2020/10/Paneer-Tikka-Featured-1.jpg",
+      image:"https://res.cloudinary.com/dhdmbwnak/image/upload/v1741249440/Paneer-Tikka-Featured-1_olkabw.webp",
       name: "Paneer Tikka",
       description:
         "Grilled paneer cubes with aromatic spices, perfect for vegetarians.",
@@ -32,7 +31,7 @@ const FoodCardsHome = () => {
     },
     {
       image:
-        "https://images.immediate.co.uk/production/volatile/sites/30/2021/02/butter-chicken-ac2ff98.jpg?quality=90&resize=440,400",
+        "https://res.cloudinary.com/dhdmbwnak/image/upload/v1741249440/Indo-Chinese-Chilli-Chicken1-1024x683_cuwfkk.webp",
       name: "Butter Chicken",
       description:
         "A rich and creamy dish that's both indulgent and flavorful.",
@@ -40,7 +39,7 @@ const FoodCardsHome = () => {
     },
     {
       image:
-        "https://www.cubesnjuliennes.com/wp-content/uploads/2020/07/Chicken-Biryani-Recipe.jpg",
+        "https://res.cloudinary.com/dhdmbwnak/image/upload/v1741249439/Chicken-Biryani-Recipe_tcuofg.webp",
       name: "Biryani",
       description:
         "A fragrant and flavorful rice dish, often paired with chicken or mutton.",
@@ -48,7 +47,7 @@ const FoodCardsHome = () => {
     },
     {
       image:
-        "https://familystylefood.com/wp-content/uploads/2023/05/Pasta-Primavera-bowl.jpg",
+        "https://res.cloudinary.com/dhdmbwnak/image/upload/v1741249439/butter-chicken-ac2ff98_xlikws.webp",
       name: "Pasta Primavera",
       description:
         "Pasta tossed with fresh vegetables and a light garlic sauce.",
@@ -56,7 +55,7 @@ const FoodCardsHome = () => {
     },
     {
       image:
-        "https://www.licious.in/blog/wp-content/uploads/2022/04/shutterstock_1617156526-min.jpg",
+        "https://res.cloudinary.com/dhdmbwnak/image/upload/v1741249797/shutterstock_1617156526-min_ithd0f.webp",
       name: "Sushi",
       description:
         "Fresh fish rolled with seasoned rice, an artful dish from Japan.",
@@ -64,7 +63,7 @@ const FoodCardsHome = () => {
     },
     {
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv1FXPNopGE_RG2kNE4htjXtfZXW9m6xNzpw&s",
+        "httphttps://res.cloudinary.com/dhdmbwnak/image/upload/v1741249439/images_dxzdj0.webp",
       name: "Spiral Potato",
       description:
         "Crispy or soft, filled with meat, veggies, and fresh salsa.",
