@@ -12,7 +12,7 @@ const DeliverySection = () => {
           initial={{ rotateX: "80deg" }}
           whileInView={{ rotateX: "0deg" }}
           transition={{ duration: 2 }}
-          src="https://foodking-react.vercel.app/assets/img/delivery-man.png"
+          src="https://res.cloudinary.com/dhdmbwnak/image/upload/v1741243217/delivery-man_guqsf5.webp"
           alt="Delivery Man"
           className="w-[300px] h-[300px] object-contain"
         />
@@ -53,12 +53,12 @@ const DeliverySection = () => {
 
         {/* Decorative Background Images */}
         <img
-          src="https://foodking-react.vercel.app/assets/img/delivery-man.png"
+          src="https://res.cloudinary.com/dhdmbwnak/image/upload/v1741243217/delivery-man_guqsf5.webp"
           className="w-[250px] h-[200px] opacity-20 absolute top-[50%] right-[20%] translate-x-1/2 translate-y-1/2"
           alt="Delivery Man Background"
         />
         <img
-          src="https://foodking-react.vercel.app/assets/img/shape/arrow-shape.png"
+          src="https://res.cloudinary.com/dhdmbwnak/image/upload/v1741243217/arrow-shape_twpido.webp"
           className="absolute bottom-10 left-[30%] opacity-50 w-[150px] "
           alt="Arrow Shape"
         />

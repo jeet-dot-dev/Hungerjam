@@ -1,6 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const FoodCardsHome = () => {
   const foodItems = [
@@ -33,7 +35,7 @@ const FoodCardsHome = () => {
         "https://images.immediate.co.uk/production/volatile/sites/30/2021/02/butter-chicken-ac2ff98.jpg?quality=90&resize=440,400",
       name: "Butter Chicken",
       description:
-        "A rich and creamy dish that’s both indulgent and flavorful.",
+        "A rich and creamy dish that's both indulgent and flavorful.",
       rating: 4.7,
     },
     {
@@ -71,61 +73,71 @@ const FoodCardsHome = () => {
   ];
 
   return (
-    <div className="food-cards w-full  bg-[#f4f1ea] p-6">
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-        {foodItems.map((item, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileHover={{ rotateY: "30deg" }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="food-card flex flex-col items-center bg-white p-4 rounded-lg shadow-lg"
-          >
-            <img
-              src={item.image}
-              alt={item.name}
-              className="w-full h-[200px] object-cover "
-            />
-            <div className="food-info mt-4 text-center">
-              <h3 className="food-name text-lg font-semibold text-[#333]">
-                {item.name}
-              </h3>
-              <p className="food-description text-sm text-gray-600 mt-2">
-                {item.description}
-              </p>
-              <div className="food-rating mt-2 flex justify-center">
-                {[...Array(5)].map((_, i) => (
-                  <span
-                    key={i}
-                    className={
-                      i < item.rating ? "text-yellow-500" : "text-gray-300"
-                    }
-                  >
-                    ★
-                  </span>
-                ))}
+    <section className="w-full bg-[#f4f1ea] py-12 px-4">
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-[#333]">
+          Our Popular Dishes
+        </h2>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {foodItems.map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="food-card flex flex-col h-full bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300"
+            >
+              <div className="relative h-48 overflow-hidden">
+                <LazyLoadImage
+                  src={item.image}
+                  alt={item.name}
+                  effect="blur"
+                  className="w-full h-full object-cover"
+                  wrapperClassName="w-full h-full"
+                  threshold={100}
+                />
+                <div className="absolute top-2 right-2 bg-white px-2 py-1 rounded-full">
+                  <span className="text-yellow-500 font-semibold">{item.rating}</span>
+                  <span className="text-yellow-500 ml-1">★</span>
+                </div>
               </div>
-              <motion.button
-                initial={{
-                  background:
-                    "linear-gradient(90deg, #ff6f61 50%, #ff6f61 50%)",
-                }}
-                whileHover={{
-                  background: [
-                    "linear-gradient(90deg, #ff6f61 0%, #ffb701 100%)",
-                  ],
-                  transition: { duration: 0.6 },
-                }}
-                className="relative py-2 px-6 font-semibold text-white rounded-lg bg-[#ff6f61] overflow-hidden"
-              >
-               <Link to='/menu'> Explore More</Link>
-              </motion.button>
-            </div>
-          </motion.div>
-        ))}
+              
+              <div className="p-5 flex flex-col flex-grow">
+                <h3 className="text-xl font-bold text-[#333] mb-2">{item.name}</h3>
+                <p className="text-gray-600 mb-4 flex-grow text-sm">{item.description}</p>
+                
+                <Link 
+                  to="/menu" 
+                  className="w-full"
+                >
+                  <motion.button
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full py-3 font-medium text-white rounded-lg bg-gradient-to-r from-[#ff6f61] to-[#ff8e61] hover:from-[#ff6f61] hover:to-[#ffb701] transition-all duration-300"
+                  >
+                    Order Now
+                  </motion.button>
+                </Link>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+        
+        <div className="text-center mt-10">
+          <Link to="/menu">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-8 py-3 bg-[#333] text-white font-semibold rounded-lg hover:bg-[#222] transition-colors duration-300"
+            >
+              View Full Menu
+            </motion.button>
+          </Link>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
