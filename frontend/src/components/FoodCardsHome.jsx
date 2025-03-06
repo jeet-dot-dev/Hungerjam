@@ -62,8 +62,7 @@ const FoodCardsHome = () => {
       rating: 4.9,
     },
     {
-      image:
-        "httphttps://res.cloudinary.com/dhdmbwnak/image/upload/v1741249439/images_dxzdj0.webp",
+      image: "https://res.cloudinary.com/dhdmbwnak/image/upload/v1741249439/images_dxzdj0.webp",
       name: "Spiral Potato",
       description:
         "Crispy or soft, filled with meat, veggies, and fresh salsa.",
