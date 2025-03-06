@@ -33,6 +33,7 @@ const BannerLogo = () => {
             <img 
               src={logo} 
               alt={`logo-${index}`} 
+               loading="lazy"
               className="h-[50px] w-auto object-contain" 
             />
           </div>
