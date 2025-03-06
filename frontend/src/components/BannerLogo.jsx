@@ -4,11 +4,11 @@ import { motion } from "framer-motion";
 const BannerLogo = () => {
   // Array of logos (you can dynamically pass these if needed)
   const logos = [
-    "https://opc.webdigify.com/OPC02/OPC032_hungerjam/image/catalog/logo.png",
-    "https://opc.webdigify.com/OPC02/OPC032_hungerjam/image/catalog/logo.png",
-    "https://opc.webdigify.com/OPC02/OPC032_hungerjam/image/catalog/logo.png",
-    "https://opc.webdigify.com/OPC02/OPC032_hungerjam/image/catalog/logo.png",
-    "https://opc.webdigify.com/OPC02/OPC032_hungerjam/image/catalog/logo.png",
+    "https://res.cloudinary.com/dhdmbwnak/image/upload/v1741243218/logo_pzacse.webp",
+    "https://res.cloudinary.com/dhdmbwnak/image/upload/v1741243218/logo_pzacse.webp",
+    "https://res.cloudinary.com/dhdmbwnak/image/upload/v1741243218/logo_pzacse.webp",
+    "https://res.cloudinary.com/dhdmbwnak/image/upload/v1741243218/logo_pzacse.webp",
+    "https://res.cloudinary.com/dhdmbwnak/image/upload/v1741243218/logo_pzacse.webp",
   ];
 
   return (
