@@ -23,7 +23,8 @@ const FoodCardsHome = () => {
       rating: 4.2,
     },
     {
-      image:"https://res.cloudinary.com/dhdmbwnak/image/upload/v1741249440/Paneer-Tikka-Featured-1_olkabw.webp",
+      image:
+        "https://res.cloudinary.com/dhdmbwnak/image/upload/v1741249440/Paneer-Tikka-Featured-1_olkabw.webp",
       name: "Paneer Tikka",
       description:
         "Grilled paneer cubes with aromatic spices, perfect for vegetarians.",
@@ -62,7 +63,8 @@ const FoodCardsHome = () => {
       rating: 4.9,
     },
     {
-      image: "https://res.cloudinary.com/dhdmbwnak/image/upload/v1741249439/images_dxzdj0.webp",
+      image:
+        "https://res.cloudinary.com/dhdmbwnak/image/upload/v1741249439/images_dxzdj0.webp",
       name: "Spiral Potato",
       description:
         "Crispy or soft, filled with meat, veggies, and fresh salsa.",
@@ -76,7 +78,7 @@ const FoodCardsHome = () => {
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-[#333]">
           Our Popular Dishes
         </h2>
-        
+
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {foodItems.map((item, index) => (
             <motion.div
@@ -97,19 +99,22 @@ const FoodCardsHome = () => {
                   threshold={100}
                 />
                 <div className="absolute top-2 right-2 bg-white px-2 py-1 rounded-full">
-                  <span className="text-yellow-500 font-semibold">{item.rating}</span>
+                  <span className="text-yellow-500 font-semibold">
+                    {item.rating}
+                  </span>
                   <span className="text-yellow-500 ml-1">★</span>
                 </div>
               </div>
-              
+
               <div className="p-5 flex flex-col flex-grow">
-                <h3 className="text-xl font-bold text-[#333] mb-2">{item.name}</h3>
-                <p className="text-gray-600 mb-4 flex-grow text-sm">{item.description}</p>
-                
-                <Link 
-                  to="/menu" 
-                  className="w-full"
-                >
+                <h3 className="text-xl font-bold text-[#333] mb-2">
+                  {item.name}
+                </h3>
+                <p className="text-gray-600 mb-4 flex-grow text-sm">
+                  {item.description}
+                </p>
+
+                <Link to="/menu" className="w-full">
                   <motion.button
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.98 }}
@@ -122,7 +127,7 @@ const FoodCardsHome = () => {
             </motion.div>
           ))}
         </div>
-        
+
         <div className="text-center mt-10">
           <Link to="/menu">
             <motion.button

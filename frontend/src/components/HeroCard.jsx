@@ -29,6 +29,7 @@ const HeroCard = () => {
 
   const isMobile = windowWidth < 768;
   const isTablet = windowWidth >= 768 && windowWidth < 1024;
+  const isDesktop = windowWidth >= 1280; // xl breakpoint
 
   return (
     <div className="w-full relative h-[500px] sm:h-[600px] md:h-[700px] overflow-hidden">
@@ -41,10 +42,16 @@ const HeroCard = () => {
         threshold={200}
         placeholderSrc="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzIDIiPjwvc3ZnPg=="
       />
-      
-      <div className="absolute top-1/4 left-0 right-0 text-white space-y-2 md:space-y-4 px-4 md:px-10">
+
+      <div
+        className={`absolute top-1/4 left-0 right-0 text-white space-y-2 md:space-y-4 px-4 md:px-10 ${
+          !isDesktop && "md:flex md:flex-col md:items-center md:text-center"
+        }`}
+      >
         <motion.p
-          className="heading text-2xl sm:text-3xl md:text-4xl font-bold rock-3d-regular text-center md:text-left"
+          className={`heading font-bold rock-3d-regular ${
+            isDesktop ? "md:text-left" : "text-center"
+          } !text-[35px] sm:!text-3xl md:!text-4xl lg:!text-5xl`}
           initial={getTextAnimation(isMobile).initial}
           animate={getTextAnimation(isMobile).animate}
           transition={{ duration: 1.3, type: "spring" }}
@@ -52,7 +59,9 @@ const HeroCard = () => {
           Food&Adda
         </motion.p>
         <motion.p
-          className="text-3xl sm:text-4xl md:text-5xl pt-4 md:pt-14 font-medium roboto-bold text-center md:text-left"
+          className={`text-3xl sm:text-4xl md:text-5xl pt-4 md:pt-10 font-medium roboto-bold ${
+            isDesktop ? "md:text-left" : "text-center"
+          }`}
           initial={getTextAnimation(isMobile).initial}
           animate={getTextAnimation(isMobile).animate}
           transition={{ duration: 1, type: "spring", delay: 0.5 }}
@@ -65,19 +74,23 @@ const HeroCard = () => {
           </motion.span>
         </motion.p>
         <motion.p
-          className="text-sm sm:text-base md:text-lg caveat text-center md:text-left"
+          className={`text-sm sm:text-base md:text-lg caveat ${
+            isDesktop ? "md:text-left" : "text-center"
+          }`}
           initial={getTextAnimation(isMobile).initial}
           animate={getTextAnimation(isMobile).animate}
           transition={{ duration: 2, type: "spring", delay: 0.8 }}
         >
           Welcome to Food & Adda, the ultimate destination for food lovers!{" "}
-          <br className="hidden md:block" />
+          <br className={`${isDesktop ? "md:block" : "hidden"}`} />
           Indulge in a delightful array of dishes that satisfy every craving,{" "}
-          <br className="hidden md:block" />
+          <br className={`${isDesktop ? "md:block" : "hidden"}`} />
           served with a touch of love and a sprinkle of magic...
         </motion.p>
-        <motion.div 
-          className="flex justify-center md:justify-start md:ml-14 mt-4 md:mt-10"
+        <motion.div
+          className={`flex ${
+            isDesktop ? "md:justify-start md:ml-14" : "justify-center"
+          } mt-4 md:mt-8`}
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1, ease: "easeIn" }}
@@ -90,9 +103,11 @@ const HeroCard = () => {
         </motion.div>
       </div>
 
-      {!isMobile && (
+      {!isMobile && isDesktop && (
         <motion.div
-          className={`absolute ${isTablet ? 'top-1/4 right-0' : 'top-40 right-3'}`}
+          className={`hidden xl:block absolute ${
+            isTablet ? "top-1/4 right-0" : "top-40 right-3"
+          }`}
           initial={{ x: 0 }}
           animate={{
             x: [5, 0, 5],
@@ -108,7 +123,11 @@ const HeroCard = () => {
             src="https://res.cloudinary.com/dhdmbwnak/image/upload/v1741250512/fx_slide_side_1_r8bgyn.webp"
             alt="Food decoration"
             effect="blur"
-            wrapperClassName={`${isTablet ? 'w-[300px] h-[250px]' : 'w-[400px] h-[350px] md:w-[500px] md:h-[450px] lg:w-[600px] lg:h-[500px]'}`}
+            wrapperClassName={`${
+              isTablet
+                ? "w-[300px] h-[250px]"
+                : "w-[400px] h-[350px] md:w-[500px] md:h-[450px] lg:w-[600px] lg:h-[500px]"
+            }`}
             className="object-contain w-full h-full"
             threshold={200}
             placeholderSrc="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzIDIiPjwvc3ZnPg=="

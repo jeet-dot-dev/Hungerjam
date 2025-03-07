@@ -12,13 +12,13 @@ import { useAuth0 } from "@auth0/auth0-react";
 const Menu = () => {
   const [sortfoodType, setSortfoodType] = useState("Default Sort");
 
-   const {
-      loginWithRedirect,
-      user,
-      isAuthenticated,
-      logout,
-      getAccessTokenSilently,
-    } = useAuth0();
+  const {
+    loginWithRedirect,
+    user,
+    isAuthenticated,
+    logout,
+    getAccessTokenSilently,
+  } = useAuth0();
 
   // State for currently selected menu category
   const [onMenuSelect, setonMenuSelect] = useState("All");
@@ -77,42 +77,44 @@ const Menu = () => {
   };
 
   //handleonclick
-  const handleonclick = (item)=>{
-   console.log(item);
-   let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-   const itemExists = cartItems.some((cartItem)=>cartItem.name === item.name);
-   if(itemExists){
-    haddleError("Already added to the cart!");
-   }else{
-    const newItem = {
-      id:item._id,
-      name : item.name,
-      price : item.price,
-      image : item.imagePaths[4]?.url,
-      qnt : 1,
+  const handleonclick = (item) => {
+    console.log(item);
+    let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    const itemExists = cartItems.some(
+      (cartItem) => cartItem.name === item.name
+    );
+    if (itemExists) {
+      haddleError("Already added to the cart!");
+    } else {
+      const newItem = {
+        id: item._id,
+        name: item.name,
+        price: item.price,
+        image: item.imagePaths[4]?.url,
+        qnt: 1,
+      };
+      cartItems.push(newItem);
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      haddleSuccess(`${item.name} added to the cart `);
+      window.location.reload();
     }
-    cartItems.push(newItem);
-    localStorage.setItem("cartItems",JSON.stringify(cartItems));
-    haddleSuccess(`${item.name} added to the cart `);
-    window.location.reload();
-   }
-  }
+  };
 
   //handdleLogin
-  const handdleLogin = ()=>{
+  const handdleLogin = () => {
     haddleError("To add a item in cart You must have an account !");
     loginWithRedirect();
-  }
+  };
 
   return (
     <>
       {/* Main Container */}
-      <div className="bg-gray-900 flex flex-col  mt-36 ">
+      <div className="bg-gray-900 flex flex-col  mt-20 lg:mt-32 xl:mt-36  ">
         {/* Header Divider */}
         <hr className="h-[10px] w-full bg-[#ffb701]" />
 
         {/* Menu Line and Sort Section */}
-        <div className="foodline h-[150px] w-full flex flex-col md:flex-row justify-between items-center p-4 gap-4">
+        <div className="foodline  w-full flex flex-col md:flex-row justify-between items-center p-4 gap-4">
           <MenuLine onMenuSelect={setonMenuSelect} />{" "}
           {/* Menu category selector */}
           <Sort sortType={setSortfoodType} /> {/* Sorting options */}
@@ -161,15 +163,32 @@ const Menu = () => {
                       </span>
                     </div>
 
-                    Hover Effect for Icons
+                    {/* Hover Effect for Icons */}
                     <motion.div
-                      className="icons flex items-center justify-center absolute top-0 left-0 right-0 bottom-0 bg-opacity-60 bg-black"
-                      initial={{ opacity: 0, y: -50 }} // Initial animation state
-                      whileHover={{ opacity: 1, y: 0 }} // Animation on hover
+                      className={`icons flex items-center justify-center ${
+                        window.innerWidth >= 1536 // Check if screen is xl or larger
+                          ? "absolute top-0 left-0 right-0 bottom-0 bg-opacity-60 bg-black"
+                          : "relative bottom-2 w-full flex justify-between py-2 mt-4 rounded-b-lg"
+                      }`}
+                      initial={
+                        window.innerWidth >= 1536
+                          ? { opacity: 0, y: -50 }
+                          : { opacity: 1, y: 0 }
+                      }
+                      whileHover={
+                        window.innerWidth >= 1536 ? { opacity: 1, y: 0 } : {}
+                      }
                       transition={{ duration: 0.3 }}
                     >
-                      <FaCartPlus onClick={isAuthenticated?()=>handleonclick(item):()=>handdleLogin()} className="text-3xl cursor-pointer mx-2 hover:text-[#ffb701]" />
-                      <FaEye className="text-3xl cursor-pointer mx-2 hover:text-[#ffb701]" />
+                      <FaCartPlus
+                        onClick={
+                          isAuthenticated
+                            ? () => handleonclick(item)
+                            : () => handdleLogin()
+                        }
+                        className="text-3xl cursor-pointer mx-2 hover:text-[#ffb701]"
+                      />
+                      <FaEye className="text-3xl cursor-pointer mx-2 hover:text-[#ffb701 hidden 2xl:block" />
                     </motion.div>
                   </div>
                 </motion.div>
