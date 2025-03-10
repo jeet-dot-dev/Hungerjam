@@ -58,13 +58,14 @@ const Navbar = ({ scrollValue }) => {
 
   return (
     <div
-      className={`w-screen  ${
-        isMobile ? "h-auto" : "h-[100px]"
-      } fixed lg:top-[50px] ${
-        scrollValue * 100 > 1 ? "bg-[#000] opacity-60" : "bg-black"
-      } flex ${isMobile ? "flex-col" : "flex-row"} items-center ${
-        isMobile ? "justify-between py-2" : "justify-start gap-10"
-      }`}
+    className={`w-screen ${
+      isMobile ? "h-auto" : "h-[100px]"
+    } fixed lg:top-[50px] ${isMobile ? "bg-black" : scrollValue * 100 > 1 ? "bg-[#000] opacity-60" : "bg-black"} flex ${
+      isMobile ? "flex-col" : "flex-row"
+    } items-center ${
+      isMobile ? "justify-between py-2" : "justify-start gap-10"
+    }`}
+    
     >
       <div
         className={`flex items-center ${

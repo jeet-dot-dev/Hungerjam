@@ -33,15 +33,34 @@ const HeroCard = () => {
 
   return (
     <div className="w-full relative h-[500px] sm:h-[600px] md:h-[700px] overflow-hidden">
-      <LazyLoadImage
-        src="https://res.cloudinary.com/dhdmbwnak/image/upload/v1741250367/fx_slider_2_1_m2qmuf.webp"
-        alt="Delicious Food"
-        effect="blur"
-        wrapperClassName="w-full h-full"
-        className="object-cover w-full h-full"
-        threshold={200}
-        placeholderSrc="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzIDIiPjwvc3ZnPg=="
-      />
+      <picture>
+  <source 
+    media="(max-width: 640px)" 
+    srcSet="https://res.cloudinary.com/dhdmbwnak/image/upload/f_auto,q_auto,w_640/v1741250367/fx_slider_2_1_m2qmuf.webp"
+  />
+  <source 
+    media="(max-width: 1024px)" 
+    srcSet="https://res.cloudinary.com/dhdmbwnak/image/upload/f_auto,q_auto,w_1024/v1741250367/fx_slider_2_1_m2qmuf.webp"
+  />
+    <source 
+    media="(max-width: 1280px)" 
+    srcSet="https://res.cloudinary.com/dhdmbwnak/image/upload/f_auto,q_auto,w_1280/v1741250367/fx_slider_2_1_m2qmuf.webp"
+  />
+     <source 
+    media="(max-width: 1536px)" 
+    srcSet="https://res.cloudinary.com/dhdmbwnak/image/upload/f_auto,q_auto,w_1280/v1741250367/fx_slider_2_1_m2qmuf.webp"
+  />
+  <LazyLoadImage
+    src="https://res.cloudinary.com/dhdmbwnak/image/upload/f_auto,q_auto,w_1200/v1741250367/fx_slider_2_1_m2qmuf.webp"
+    alt="Delicious Food"
+    width={1920}
+    height={1080}
+    className="object-cover w-full h-full"
+    loading="eager"
+    effect="blur"
+    fetchpriority="high"
+  />
+</picture>
 
       <div
         className={`absolute top-1/4 left-0 right-0 text-white space-y-2 md:space-y-4 px-4 md:px-10 ${
