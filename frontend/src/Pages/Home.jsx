@@ -27,7 +27,7 @@ const Hero = () => {
       <Suspense fallback={<LoadingFallback />}>
         <HeroCard  />
       </Suspense>
-      <div className="sec1 w-full md:h-[1000px] -z-10">
+      <div className="sec1 w-full md:h-[1000px] ">
         {/* First section with text and video */}
         <div className="home w-full md:h-[450px] py-8 md:py-0 flex flex-col md:flex-row items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white">
           {/* Left Section with Text */}
