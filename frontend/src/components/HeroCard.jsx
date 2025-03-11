@@ -7,6 +7,15 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 
 const HeroCard = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [hasAnimated, setHasAnimated] = useState(
+      JSON.parse(sessionStorage.getItem("animation") || "false")
+    );
+
+    useEffect(() => {
+        if (!hasAnimated) {
+          sessionStorage.setItem("animation", "true");
+        }
+      }, [hasAnimated]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -71,9 +80,11 @@ const HeroCard = () => {
           className={`heading font-bold rock-3d-regular ${
             isDesktop ? "md:text-left" : "text-center"
           } !text-[35px] sm:!text-3xl md:!text-4xl lg:!text-5xl`}
-          initial={getTextAnimation(isMobile).initial}
-          animate={getTextAnimation(isMobile).animate}
+          initial={!hasAnimated && getTextAnimation(isMobile).initial}
+          animate={!hasAnimated  && getTextAnimation(isMobile).animate}
           transition={{ duration: 1.3, type: "spring" }}
+          onAnimationComplete={() => setHasAnimated(true)}
+          viewport={{ once: true }}
         >
           Food&Adda
         </motion.p>
@@ -81,9 +92,10 @@ const HeroCard = () => {
           className={`text-3xl sm:text-4xl md:text-5xl pt-4 md:pt-10 font-medium roboto-bold ${
             isDesktop ? "md:text-left" : "text-center"
           }`}
-          initial={getTextAnimation(isMobile).initial}
-          animate={getTextAnimation(isMobile).animate}
+          initial={!hasAnimated && getTextAnimation(isMobile).initial}
+          animate={!hasAnimated && getTextAnimation(isMobile).animate}
           transition={{ duration: 1, type: "spring", delay: 0.5 }}
+          onAnimationComplete={() => setHasAnimated(true)}
         >
           Where{" "}
           <motion.span className="text-[#ffb701] font-bold">Taste</motion.span>{" "}
@@ -96,8 +108,9 @@ const HeroCard = () => {
           className={`text-sm sm:text-base md:text-lg caveat ${
             isDesktop ? "md:text-left" : "text-center"
           }`}
-          initial={getTextAnimation(isMobile).initial}
-          animate={getTextAnimation(isMobile).animate}
+          initial={!hasAnimated && getTextAnimation(isMobile).initial}
+          animate={!hasAnimated && getTextAnimation(isMobile).animate}
+          onAnimationComplete={() => setHasAnimated(true)}
           transition={{ duration: 2, type: "spring", delay: 0.8 }}
         >
           Welcome to Food & Adda, the ultimate destination for food lovers!{" "}
@@ -110,8 +123,9 @@ const HeroCard = () => {
           className={`flex ${
             isDesktop ? "md:justify-start md:ml-14" : "justify-center"
           } mt-4 md:mt-8`}
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
+          initial={!hasAnimated && { y: 100, opacity: 0 }}
+          animate={!hasAnimated && { y: 0, opacity: 1 }}
+          onAnimationComplete={() => setHasAnimated(true)}
           transition={{ duration: 1, ease: "easeIn" }}
         >
           <Link to="/menu">

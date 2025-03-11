@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import "../css/HomeCard.css";
 import add from "../Assets/restaurant_ad.mp4";
@@ -20,10 +20,12 @@ const LoadingFallback = () => (
 );
 
 const Hero = () => {
+  
+  
   return (
     <>
       <Suspense fallback={<LoadingFallback />}>
-        <HeroCard />
+        <HeroCard  />
       </Suspense>
       <div className="sec1 w-full md:h-[1000px] -z-10">
         {/* First section with text and video */}
@@ -31,10 +33,11 @@ const Hero = () => {
           {/* Left Section with Text */}
           <div className="relative w-full md:w-[50%] h-full flex flex-col items-center justify-center px-4 md:px-8 mb-8 md:mb-0">
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: false, amount: 0.5 }}
-              transition={{ duration: 1.5 }}
+            layoutId="heading"
+            initial={ { opacity: 0, x: -50 }}
+            animate={ { opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 1.5 }}
               className="w-full max-w-md"
             >
               <h1 className="text-2xl md:text-3xl font-bold text-yellow-500 text-center rasa">
