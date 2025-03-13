@@ -13,6 +13,7 @@ import Navbar from "./components/Navbar";
 import Popup from "./components/Popup";
 import Home from "./Pages/Home";
 import Loader  from "./components/Loader";
+import ContactPage from "./Pages/Contact";
 
 const App = () => {
   const [scrollValue, setScrollValue] = useState(0); // Tracks scroll progress
@@ -70,6 +71,16 @@ const App = () => {
                 <Form />
               </Suspense>
             </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+           
+              <Suspense fallback={<Loader/>}>
+                <ContactPage/>
+              </Suspense>
+            
           }
         />
       </Routes>
