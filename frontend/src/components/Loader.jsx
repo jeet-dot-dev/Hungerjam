@@ -1,16 +1,11 @@
-import { Player } from "@lottiefiles/react-lottie-player";
+import { SyncLoader } from 'react-spinners';
 
 const Loader = () => {
   return (
     <div className="flex justify-center items-center h-screen">
-      <Player
-        autoplay
-        loop
-        src="/pizza-loader.json" // Replace with your file path
-        style={{ height: '150px', width: '150px' }}
-      />
+      <SyncLoader color="#ffb701" size={15} />
     </div>
   );
 };
 
-export default Loader ;
+export default Loader;
