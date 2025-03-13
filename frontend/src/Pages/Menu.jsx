@@ -7,81 +7,9 @@ import { FaCartPlus } from "react-icons/fa"; // Icon for adding items to cart
 import { FaEye } from "react-icons/fa"; // Icon for viewing item details
 import { motion } from "framer-motion"; // Library for animations
 import { haddleError, haddleSuccess } from "../Utils/Toastify";
+import Loader from "../components/Loader";
 
 const Menu = () => {
-
-  const LazyCard = React.lazy(() =>
-    Promise.resolve({ default: () => (
-      <motion.div
-        key={index}
-        className="w-[350px] h-[400px] m-3 p-7 bg-gray-800 rounded-lg shadow-lg relative overflow-hidden"
-      >
-        {/* Food Image */}
-        <div className="w-[300px] h-[150px] rounded-lg">
-          <img
-            src={item.imagePaths[4]?.url}
-            alt={item.name}
-            className="w-full h-full object-cover rounded-lg"
-            loading="lazy" // ✅ Lazy load image
-          />
-        </div>
-  
-        {/* Food Details */}
-        <div className="p-4 text-white">
-          {/* Food Name */}
-          <h1 className="text-xl font-semibold mb-2 overflow-hidden text-ellipsis whitespace-nowrap">
-            {item.name}
-          </h1>
-  
-          {/* Food Description */}
-          <h1 className="text-sm mb-2 line-clamp-2">
-            {item.description}
-          </h1>
-  
-          {/* Price */}
-          <p className="text-lg font-bold text-yellow-500">
-            ₹{item.price}
-          </p>
-  
-          {/* Rating */}
-          <div className="rating flex items-center gap-1 mt-2">
-            {renderStars(item.rating)}
-            <span className="text-gray-500 text-sm">
-              ({item.rating})
-            </span>
-          </div>
-  
-          {/* Hover Effect for Icons */}
-          <motion.div
-            className={`icons flex items-center justify-center ${
-              window.innerWidth >= 1536
-                ? "absolute top-0 left-0 right-0 bottom-0 bg-opacity-60 bg-black"
-                : "relative bottom-2 w-full flex justify-between py-2 mt-4 rounded-b-lg"
-            }`}
-            initial={
-              window.innerWidth >= 1536
-                ? { opacity: 0, y: -50 }
-                : { opacity: 1, y: 0 }
-            }
-            whileHover={
-              window.innerWidth >= 1536 ? { opacity: 1, y: 0 } : {}
-            }
-            transition={{ duration: 0.3 }}
-          >
-            <FaCartPlus
-              onClick={
-                isAuthenticated
-                  ? () => handleonclick(item)
-                  : () => handdleLogin()
-              }
-              className="text-3xl cursor-pointer mx-2 hover:text-[#ffb701]"
-            />
-            <FaEye className="text-3xl cursor-pointer mx-2 hover:text-[#ffb701 hidden 2xl:block" />
-          </motion.div>
-        </div>
-      </motion.div>
-    )})
-  );
 
   
   const [sortfoodType, setSortfoodType] = useState("Default Sort");
@@ -262,7 +190,7 @@ const Menu = () => {
             </div>
           ) : (
             <p className="text-center text-white text-lg">
-              No food items available
+             <Loader/>
             </p>
           )}
 
