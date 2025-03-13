@@ -17,7 +17,7 @@ import { useInView } from "react-intersection-observer";
 
 import Footer from "../components/Footer";
 
-//const MapSection = lazy(() => import('./MapSection'))
+const MapSection = lazy(() => import("../components/MapSection"));
 
 const ContactInfoItem = ({ icon, title, details }) => {
   const Icon = icon;
@@ -470,29 +470,22 @@ export default function ContactPage() {
       </section>
 
       {/* Map Section */}
+      {/* Map Section */}
       <section ref={mapRef} className="py-12 md:py-16">
         <div className="container mx-auto px-4">
           <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
+            className="bg-[#1d2235] p-6 md:p-8 rounded-lg shadow-lg shadow-[#ffa500]/10"
+            initial={{ opacity: 0, y: 40 }}
             animate={mapInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              <span className="text-[#ffa500]">Find</span> Us
-            </h2>
-            <p className="text-gray-300 max-w-2xl mx-auto">
-              Visit our coffee shop to experience the perfect blend of ambiance
-              and taste.
-            </p>
+            <h2 className="text-2xl font-bold mb-6 text-[#ffa500]">Find Us</h2>
+            <div className="w-full h-[400px] bg-[#151a2b] rounded-lg overflow-hidden">
+              <Suspense fallback={<MapPlaceholder />}>
+                {mapInView && <MapSection />}
+              </Suspense>
+            </div>
           </motion.div>
-
-          <motion.div
-            className="bg-[#1d2235] rounded-lg overflow-hidden shadow-lg shadow-[#ffa500]/10 h-[400px]"
-            initial={{ opacity: 0, y: 30 }}
-            animate={mapInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          ></motion.div>
         </div>
       </section>
 
@@ -553,8 +546,8 @@ export default function ContactPage() {
       </section>
 
       {/* Newsletter Section */}
-     
-      <Footer/>
+
+      <Footer />
     </main>
   );
 }

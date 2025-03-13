@@ -12,8 +12,9 @@ const Form = React.lazy(() => import("./Pages/Form"));
 import Navbar from "./components/Navbar";
 import Popup from "./components/Popup";
 import Home from "./Pages/Home";
-import Loader  from "./components/Loader";
+import Loader from "./components/Loader";
 import ContactPage from "./Pages/Contact";
+import AboutPage from "./Pages/AboutPage";
 
 const App = () => {
   const [scrollValue, setScrollValue] = useState(0); // Tracks scroll progress
@@ -38,7 +39,7 @@ const App = () => {
         <Route
           path="/menu"
           element={
-            <Suspense fallback={<Loader/>}>
+            <Suspense fallback={<Loader />}>
               <Menu />
             </Suspense>
           }
@@ -47,7 +48,7 @@ const App = () => {
           path="/cart"
           element={
             <ProtectedRoute>
-              <Suspense fallback={<Loader/>}>
+              <Suspense fallback={<Loader />}>
                 <CartPage />
               </Suspense>
             </ProtectedRoute>
@@ -57,7 +58,7 @@ const App = () => {
           path="/profile"
           element={
             <ProtectedRoute>
-              <Suspense fallback={<Loader/>}>
+              <Suspense fallback={<Loader />}>
                 <ProfilePage />
               </Suspense>
             </ProtectedRoute>
@@ -67,7 +68,7 @@ const App = () => {
           path="/form"
           element={
             <ProtectedRoute>
-              <Suspense fallback={<Loader/>}>
+              <Suspense fallback={<Loader />}>
                 <Form />
               </Suspense>
             </ProtectedRoute>
@@ -76,11 +77,17 @@ const App = () => {
         <Route
           path="/contact"
           element={
-           
-              <Suspense fallback={<Loader/>}>
-                <ContactPage/>
-              </Suspense>
-            
+            <Suspense fallback={<Loader />}>
+              <ContactPage />
+            </Suspense>
+          }
+        />
+         <Route
+          path="/about"
+          element={
+            <Suspense fallback={<Loader />}>
+              <AboutPage />
+            </Suspense>
           }
         />
       </Routes>
