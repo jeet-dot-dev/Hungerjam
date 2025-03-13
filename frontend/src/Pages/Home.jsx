@@ -1,7 +1,6 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import "../css/HomeCard.css";
-import add from "../Assets/restaurant_ad.mp4";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
@@ -20,12 +19,10 @@ const LoadingFallback = () => (
 );
 
 const Hero = () => {
-  
-  
   return (
     <>
       <Suspense fallback={<LoadingFallback />}>
-        <HeroCard  />
+        <HeroCard />
       </Suspense>
       <div className="sec1 w-full md:h-[1000px] ">
         {/* First section with text and video */}
@@ -33,11 +30,11 @@ const Hero = () => {
           {/* Left Section with Text */}
           <div className="relative w-full md:w-[50%] h-full flex flex-col items-center justify-center px-4 md:px-8 mb-8 md:mb-0">
             <motion.div
-            layoutId="heading"
-            initial={ { opacity: 0, x: -50 }}
-            animate={ { opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 1.5 }}
+              layoutId="heading"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 1.5 }}
               className="w-full max-w-md"
             >
               <h1 className="text-2xl md:text-3xl font-bold text-yellow-500 text-center rasa">
@@ -123,12 +120,14 @@ const Hero = () => {
           <div className="w-full md:w-[50%] h-full flex flex-col items-center justify-center p-4 md:p-0 space-y-4">
             <video
               className="w-full md:w-[80%] h-auto md:h-[85%] rounded-lg shadow-lg border-4 border-yellow-500"
-              src={add}
+              src="https://res.cloudinary.com/dhdmbwnak/video/upload/f_auto,q_auto/v1741843480/restaurant_ad_obxcwz.mp4"
+              poster="https://res.cloudinary.com/dhdmbwnak/image/upload/v1741843823/Screenshot_2025-03-13_105908_brztjm.webp"
               autoPlay
               loop
               muted
               playsInline
               preload="auto"
+              loading="eager"
             />
           </div>
         </div>
