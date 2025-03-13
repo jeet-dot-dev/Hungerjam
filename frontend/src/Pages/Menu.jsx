@@ -189,9 +189,9 @@ const Menu = () => {
               ))}
             </div>
           ) : (
-            <p className="text-center text-white text-lg">
+            
              <Loader/>
-            </p>
+            
           )}
 
           {/* Pagination Controls */}
