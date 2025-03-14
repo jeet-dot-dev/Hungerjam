@@ -4,18 +4,23 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   name: { type: String, required: true },
   email: { type: String, required: true },
-  picture:{type: String, required: true},
-  auth0UserId:{type:String , require:true},
-  address :{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Address'
-          },
-  details:{
-    type:Boolean,
-    default:false,
-    
-  }        
- 
+  picture: { type: String, required: true },
+  auth0UserId: { type: String, require: true },
+  address: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Address",
+  },
+  orders: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Order",
+    },
+  ],
+
+  details: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const User = mongoose.model("User", userSchema);

@@ -15,6 +15,7 @@ import Home from "./Pages/Home";
 import Loader from "./components/Loader";
 import ContactPage from "./Pages/Contact";
 import AboutPage from "./Pages/AboutPage";
+import Verify from "./Pages/verify";
 
 const App = () => {
   const [scrollValue, setScrollValue] = useState(0); // Tracks scroll progress
@@ -47,11 +48,11 @@ const App = () => {
         <Route
           path="/cart"
           element={
-            <ProtectedRoute>
+          
               <Suspense fallback={<Loader />}>
                 <CartPage />
               </Suspense>
-            </ProtectedRoute>
+          
           }
         />
         <Route
@@ -60,6 +61,16 @@ const App = () => {
             <ProtectedRoute>
               <Suspense fallback={<Loader />}>
                 <ProfilePage />
+              </Suspense>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/verify"
+          element={
+            <ProtectedRoute>
+              <Suspense fallback={<Loader />}>
+                <Verify />
               </Suspense>
             </ProtectedRoute>
           }

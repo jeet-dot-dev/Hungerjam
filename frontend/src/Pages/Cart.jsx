@@ -8,10 +8,13 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { StoreContext } from "../Context/Context";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function CartPage() {
-  const { cartItems, setCartItems } = useContext(StoreContext);
+  const { cartItems, setCartItems, user_data, url } = useContext(StoreContext);
   const navigate = useNavigate();
+  console.log(user_data.details);
+  console.log(cartItems);
 
   // Function to update quantity
   const updateqnt = (id, change) => {
@@ -37,6 +40,35 @@ export default function CartPage() {
   const deliveryFee = subtotal < 499 ? 40 : 0;
   const total = subtotal + deliveryFee;
   const itemCount = cartItems.reduce((count, item) => count + item.qnt, 0);
+
+  const handleCheckout = () => {
+    if (user_data?.details) {
+      placeorder();
+    } else {
+      navigate("/form");
+    }
+  };
+
+  //placeorder func
+  const placeorder = async () => {
+    try {
+      const res = await axios.post(`${url}/api/order/place`, {
+        userId: user_data._id, // Assign key to value
+        items: cartItems,
+        deliveryFee,
+        amount: total,
+      });
+      console.log(res);
+      if (res.data.success) {
+        const { session_url } = res.data;
+        window.location.replace(session_url);
+      } else {
+        alert("Error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white py-12 mt-20 lg:mt-32 xl:mt-36">
@@ -193,7 +225,7 @@ export default function CartPage() {
                 </div>
                 <Button
                   className="w-full mt-8 bg-yellow-500 hover:bg-yellow-600 text-black font-semibold text-lg py-6"
-                  onClick={() => navigate("/form")}
+                  onClick={handleCheckout}
                 >
                   Proceed to Checkout
                 </Button>

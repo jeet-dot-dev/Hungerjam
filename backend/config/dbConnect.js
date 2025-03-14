@@ -10,7 +10,7 @@ const url = process.env.MONGODB_URI; // Ensure MONGODB_URI is set in your .env f
 const connectDB = async () => {
   try {
     await mongoose.connect(
-      url
+     url
     ); // No need for deprecated options
     console.log("Database is connected");
   } catch (err) {
