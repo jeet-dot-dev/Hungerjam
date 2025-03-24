@@ -62,6 +62,7 @@ export default function CartPage() {
       if (res.data.success) {
         const { session_url } = res.data;
         window.location.replace(session_url);
+        
       } else {
         alert("Error");
       }

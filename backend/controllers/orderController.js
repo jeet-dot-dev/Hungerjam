@@ -86,5 +86,27 @@ const verifyOrder = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
-
-export { placeOrder, verifyOrder };
+const fetchorderhistory = async (req,res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) {
+      return res.status(401).json({ message: "Token not found" });
+    }
+    const decodedToken = jwt.decode(token);
+    const userID = decodedToken?.sub;
+   // console.log(userID);
+    const user1 = await User.findOne({ auth0UserId:userID });
+    if (!user1) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const orderHistory = await Order.find({ user: user1._id });
+    if (!orderHistory) {
+      return res.status(404).json({ message: "orderHistory not found" });
+    }
+    res.json({ success: true, orderHistory });
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ message: "Failed to find user", error });
+  }
+};
+export { placeOrder, verifyOrder, fetchorderhistory };

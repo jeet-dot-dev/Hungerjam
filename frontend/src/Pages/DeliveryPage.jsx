@@ -1,236 +1,237 @@
-"use client"
+import React, { useContext, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Clock,
+  Package,
+  Check,
+  X,
+  ChevronDown,
+  AlertCircle,
+  RefreshCcw,
+  ListOrdered,
+  Calendar,
+  DollarSign,
+} from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { haddleError } from "../Utils/Toastify";
+import { StoreContext } from "../Context/Context";
 
-import { useState } from 'react'
-import { motion, AnimatePresence } from "framer-motion"
-import { Clock, Package, Check, X, ChevronDown, AlertCircle } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
-import {haddleError,haddleSuccess} from '../Utils/Toastify'
-//import { toast } from "sonner"
+export function OrderStatusBadge({ status }) {
+  const statusColors = {
+    "Food Processing": "bg-yellow-100 text-yellow-800",
+    "Out for Delivery": "bg-blue-100 text-blue-800",
+    Delivered: "bg-green-100 text-green-800",
+    Cancelled: "bg-red-100 text-red-800",
+  };
 
-export function DeliveryStatus({ status }) {
-  const steps = [
-    { id: "processing", label: "Processing", icon: Clock },
-    { id: "shipping", label: "Out for Delivery", icon: Package },
-    { id: "delivered", label: "Delivered", icon: Check },
-  ]
-  
-  let currentStep = 0
-  if (status === "Food Processing") {
-    currentStep = 0
-  } else if (status === "Out for Delivery") {
-    currentStep = 1
-  } else if (status === "Delivered") {
-    currentStep = 2
-  } else if (status === "Cancelled") {
-    return (
-      <div className="w-full py-4">
-        <div className="flex items-center justify-center gap-2 text-red-500">
-          <X className="h-5 w-5" />
-          <span className="font-medium">Order Cancelled</span>
-        </div>
-      </div>
-    )
-  }
-  
   return (
-    <div className="w-full py-4 mt-40">
-      <div className="relative ">
-        <div className="absolute left-0 top-1/2 h-0.5 w-full -translate-y-1/2 bg-gray-200 dark:bg-gray-700" />
-        <div className="relative flex justify-between">
-          {steps.map((step, index) => {
-            const Icon = step.icon
-            const isActive = index <= currentStep
-            return (
-              <div key={step.id} className="flex flex-col items-center gap-2">
-                <motion.div
-                  initial={{ scale: 0.8 }}
-                  animate={{ scale: isActive ? 1 : 0.8 }}
-                  className={`relative z-10 flex h-8 w-8 items-center justify-center rounded-full ${
-                    isActive ? "bg-amber-500" : "bg-gray-200 dark:bg-gray-700"
-                  }`}
-                >
-                  <Icon className={`h-4 w-4 ${isActive ? "text-white" : "text-gray-500"}`} />
-                </motion.div>
-                <span className={`text-xs ${isActive ? "text-amber-500" : "text-gray-500"}`}>{step.label}</span>
-              </div>
-            )
-          })}
-        </div>
-      </div>
-    </div>
-  )
+    <Badge
+      className={`${
+        statusColors[status] || "bg-gray-100 text-gray-800"
+      } text-xs px-2 py-1`}
+    >
+      {status}
+    </Badge>
+  );
 }
 
 export default function DeliveryPage() {
-  // Sample orders data (you would fetch this from your API)
-  const [orders, setOrders] = useState([
-    {
-      _id: "ord123456",
-      user: "user123",
-      items: [
-        { id: "item1", name: "Chicken Burger", image: "/api/placeholder/80/80", price: 8.99, quantity: 2 },
-        { id: "item2", name: "French Fries", image: "/api/placeholder/80/80", price: 3.99, quantity: 1 },
-        { id: "item3", name: "Soft Drink", image: "/api/placeholder/80/80", price: 1.99, quantity: 2 },
-      ],
-      amount: 25.95,
-      status: "Food Processing",
-      date: new Date().toISOString(),
-      payment: true,
-    },
-    {
-      _id: "ord789012",
-      user: "user123",
-      items: [
-        { id: "item4", name: "Veggie Pizza", image: "/api/placeholder/80/80", price: 12.99, quantity: 1 },
-        { id: "item5", name: "Garlic Bread", image: "/api/placeholder/80/80", price: 4.99, quantity: 1 },
-      ],
-      amount: 17.98,
-      status: "Out for Delivery",
-      date: new Date().toISOString(),
-      payment: true,
-    },
-    {
-      _id: "ord345678",
-      user: "user123",
-      items: [
-        { id: "item6", name: "Pasta Carbonara", image: "/api/placeholder/80/80", price: 10.99, quantity: 2 },
-      ],
-      amount: 21.98,
-      status: "Delivered",
-      date: new Date(Date.now() - 86400000).toISOString(), // Yesterday
-      payment: true,
-    }
-  ]);
-
-  // Track which order is expanded
+  const { orderHistory } = useContext(StoreContext);
+  const [visibleOrders, setVisibleOrders] = useState(5);
   const [expandedOrderId, setExpandedOrderId] = useState(null);
-
+  console.log(orderHistory);
   const toggleOrderExpansion = (orderId) => {
     setExpandedOrderId(expandedOrderId === orderId ? null : orderId);
   };
 
-  const cancelOrder = (orderId) => {
-    setOrders(orders.map(order => 
-      order._id === orderId ? { ...order, status: "Cancelled" } : order
-    ));
-    
-    // Using sonner toast instead of shadcn/ui toast
-    haddleError(`Order #${orderId} has been cancelled.`);
+  const loadMoreOrders = () => {
+    setVisibleOrders((prev) => prev + 5);
   };
 
-  // Format date to readable string
   const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString() + " at " + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    try {
+      const date = new Date(parseInt(dateString));
+      return date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    } catch {
+      return "Invalid Date";
+    }
   };
 
   return (
-    <div className="container mx-auto max-w-3xl py-8">
-      <h1 className="mb-8 text-3xl font-bold">My Orders</h1>
-      
-      {orders.length === 0 ? (
-        <Card className="my-8">
-          <CardContent className="flex flex-col items-center justify-center py-16">
-            <AlertCircle className="h-16 w-16 text-gray-400" />
-            <h3 className="mt-4 text-xl font-medium">No Orders Found</h3>
-            <p className="mt-2 text-sm text-gray-500">You haven't placed any orders yet.</p>
-          </CardContent>
-        </Card>
+    <div className="container mx-auto max-w-4xl mt-20 lg:mt-32 xl:mt-40   py-8 px-4 bg-[#0F172A] min-h-screen">
+      <div className="flex items-center justify-between mb-8">
+        <h1 className="text-3xl font-bold text-amber-500 flex items-center">
+          <ListOrdered className="mr-3 text-amber-500" />
+          My Orders
+        </h1>
+        <div className="text-white text-sm">
+          Total Orders: {orderHistory.length}
+        </div>
+      </div>
+
+      {orderHistory.length === 0 ? (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-[#1E293B] rounded-lg p-8 text-center"
+        >
+          <AlertCircle className="mx-auto h-16 w-16 text-gray-400 mb-4" />
+          <h3 className="text-xl font-medium text-white mb-2">No Orders Yet</h3>
+          <p className="text-gray-400">
+            Start ordering delicious food from Food & Adda!
+          </p>
+        </motion.div>
       ) : (
         <div className="space-y-4">
-          {orders.map((order) => (
-            <Card key={order._id} className="overflow-hidden">
-              <CardHeader 
-                className="cursor-pointer bg-gray-50 dark:bg-gray-800"
-                onClick={() => toggleOrderExpansion(order._id)}
-              >
-                <div className="flex items-center justify-between">
-                  <div className="space-y-1">
-                    <CardTitle className="flex items-center gap-2">
-                      Order #{order._id}
-                      {!order.payment && (
-                        <Badge variant="outline" className="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100">
-                          Unpaid
-                        </Badge>
-                      )}
-                    </CardTitle>
-                    <p className="text-sm text-gray-500">{formatDate(order.date)}</p>
+        {[...orderHistory]
+  .sort((a, b) => new Date(b.date) - new Date(a.date)) // Sort orders by date (newest first)
+  .slice(0, visibleOrders)
+  .map((order) => (
+    <motion.div
+      key={order._id}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className="bg-[#1E293B] rounded-lg overflow-hidden"
+    >
+      <div
+        onClick={() => toggleOrderExpansion(order._id)}
+        className="p-4 flex justify-between items-center cursor-pointer hover:bg-[#334155] transition-colors"
+      >
+        <div>
+          <div className="flex items-center space-x-3">
+            <span className="text-amber-500 font-semibold">
+              Order #{order._id.slice(-6)}
+            </span>
+            <OrderStatusBadge status={order.status} />
+          </div>
+          <div className="flex items-center text-gray-400 text-sm mt-1">
+            <Calendar className="w-4 h-4 mr-2 text-gray-500" />
+            {formatDate(order.date)}
+          </div>
+        </div>
+        <div className="flex items-center space-x-3">
+          <span className="text-white font-bold flex items-center">
+            ₹{order.amount.toFixed(2)}
+          </span>
+          <motion.div
+            animate={{
+              rotate: expandedOrderId === order._id ? 180 : 0,
+            }}
+            transition={{ duration: 0.3 }}
+          >
+            <ChevronDown className="text-gray-400" />
+          </motion.div>
+        </div>
+      </div>
+
+      <AnimatePresence>
+        {expandedOrderId === order._id && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="p-4 bg-[#334155]"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <h4 className="text-white font-semibold mb-3">
+                  Order Items
+                </h4>
+                {order.items.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex items-center mb-2 bg-[#1E293B] p-2 rounded"
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-12 h-12 object-cover rounded mr-3"
+                    />
+                    <div className="flex-grow">
+                      <p className="text-white">{item.name}</p>
+                      <p className="text-gray-400 text-sm">
+                        ₹{item.price} x {item.qnt}
+                      </p>
+                    </div>
+                    <span className="text-amber-500 font-bold">
+                      ₹{(item.price * item.qnt).toFixed(2)}
+                    </span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Badge 
-                      className={`${
-                        order.status === "Delivered" ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100" :
-                        order.status === "Out for Delivery" ? "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100" :
-                        order.status === "Cancelled" ? "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100" :
-                        "bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-100"
+                ))}
+              </div>
+              <div>
+                <h4 className="text-white font-semibold mb-3">
+                  Order Details
+                </h4>
+                <div className="bg-[#1E293B] p-4 rounded space-y-2">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Subtotal</span>
+                    <span className="text-white">
+                      ₹{order.amount.toFixed(2)}
+                    </span>
+                    {order.amount < 500 && (
+                      <>
+                        <span className="text-gray-400">
+                          Delivery Charges
+                        </span>
+                        <span className="text-white">40₹</span>
+                      </>
+                    )}
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Status</span>
+                    <OrderStatusBadge status={order.status} />
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Payment</span>
+                    <span
+                      className={`font-semibold ${
+                        order.payment
+                          ? "text-green-500"
+                          : "text-red-500"
                       }`}
                     >
-                      {order.status}
-                    </Badge>
-                    <motion.div
-                      animate={{ rotate: expandedOrderId === order._id ? 180 : 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <ChevronDown className="h-5 w-5 text-gray-500" />
-                    </motion.div>
+                      {order.payment ? "Paid" : "Unpaid"}
+                    </span>
                   </div>
                 </div>
-              </CardHeader>
-              
-              <AnimatePresence>
-                {expandedOrderId === order._id && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                  >
-                    <CardContent className="pt-4">
-                      <DeliveryStatus status={order.status} />
-                      
-                      <Separator className="my-4" />
-                      
-                      <div className="space-y-3">
-                        {order.items.map((item) => (
-                          <div key={item.id} className="flex items-center gap-4">
-                            <div className="h-16 w-16 overflow-hidden rounded-md">
-                              <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
-                            </div>
-                            <div className="flex-1">
-                              <h4 className="font-medium">{item.name}</h4>
-                              <p className="text-sm text-gray-500">${item.price.toFixed(2)} x {item.quantity}</p>
-                            </div>
-                            <p className="font-medium">${(item.price * item.quantity).toFixed(2)}</p>
-                          </div>
-                        ))}
-                      </div>
-                      
-                      <div className="mt-4 flex justify-between border-t pt-4">
-                        <p className="font-medium">Total Amount:</p>
-                        <p className="font-bold">${order.amount.toFixed(2)}</p>
-                      </div>
-                    </CardContent>
-                    
-                    <CardFooter className="flex justify-end gap-3 pb-4">
-                      {order.status !== "Delivered" && order.status !== "Cancelled" && (
-                        <Button 
-                          variant="destructive" 
-                          onClick={() => cancelOrder(order._id)}
-                          className="px-4"
-                        >
-                          Cancel Order
-                        </Button>
-                      )}
-                      <Button className="bg-amber-500 hover:bg-amber-600 px-4">Track Order</Button>
-                    </CardFooter>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </Card>
-          ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+))}
+
+        </div>
+      )}
+
+      {visibleOrders < orderHistory.length && (
+        <div className="flex justify-center mt-6">
+          <Button
+            onClick={loadMoreOrders}
+            variant="secondary"
+            className="bg-amber-500 hover:bg-amber-600 text-black"
+          >
+            <RefreshCcw className="mr-2 h-4 w-4" /> Load More Orders
+          </Button>
         </div>
       )}
     </div>

@@ -11,7 +11,7 @@ const Verify = () => {
   const orderId = searchParams.get("orderID");
   console.log(orderId);
   const [isLoading, setIsLoading] = useState(true);
-  const { url, getAccessTokenSilently } = useContext(StoreContext);
+  const { url, getAccessTokenSilently,cartItems, setCartItems} = useContext(StoreContext);
   const navigate = useNavigate();
   const verifyPayment = async () => {
     try {
@@ -30,10 +30,12 @@ const Verify = () => {
         }
       );
 
-      console.log(success);
+      //console.log(cartItems);
 
       if (res.data.success) {
         navigate("/delivery");
+        localStorage.removeItem("cartItems");
+        setCartItems([]);
         haddleSuccess(res.data.message);
       } else {
         navigate("/cart");

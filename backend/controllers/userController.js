@@ -43,7 +43,7 @@ const getUser = async (req, res) => {
     const decodedToken = jwt.decode(token); // Decode JWT
     const userId = decodedToken?.sub;
 
-    const user_data = await User.findOne({ auth0UserId: userId }).populate("address"); // Populate address field
+    const user_data = await User.findOne({ auth0UserId: userId }).populate("address").populate(""); // Populate address field
 
     if (!user_data) {
       return res.status(404).json({ message: "User not found" });

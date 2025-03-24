@@ -21,6 +21,9 @@ const StoreContextProvider = (props) => {
   //storing the cart items
   const [cartItems, setCartItems] = useState([]);
 
+  //oreder history
+  const [orderHistory,setOrderHistory] = useState([]);
+
   //auth0
   const {
     loginWithRedirect,
@@ -61,19 +64,40 @@ const fetchUser = async () => {
   
         try {
             const token = await getAccessTokenSilently(); // Await the token
-            const res = await axios.get(`${url}/api/user/details`, {
+           
+              const res = await axios.get(`${url}/api/user/details`, {
                 headers: {
                     Authorization: `Bearer ${token}`, // Space after Bearer
                     "Content-Type": "application/json",
                 }
             });
-            console.log(res.data.data); // Log response data, not the whole response object
-           set_user_data( res.data.data);
+            set_user_data( res.data.data);
+          
+           
         } catch (error) {
             console.error("Error fetching user details:", error);
         }
     
 };
+
+//func for fetching order history of the user order
+const fetchorderhistory = async ()=>{
+  try {
+    const token = await getAccessTokenSilently();
+   
+      const res = await axios.get(`${url}/api/order/history`,{
+        headers:{
+          Authorization: `Bearer ${token}`,
+          "Content-Type":"application/json",
+        }
+      })
+      //console.log(res?.data);
+     setOrderHistory(res?.data?.orderHistory)
+    
+  } catch (error) {
+    console.error("Error fetching user details:", error);
+  }
+}
 
 
 
@@ -93,6 +117,7 @@ const fetchUser = async () => {
   useEffect(() => {
     if (isAuthenticated) {
      fetchUser();
+     fetchorderhistory()
     }
   }, [isAuthenticated]);
 
@@ -114,7 +139,9 @@ const fetchUser = async () => {
     getAccessTokenSilently,
     haddleError,
     haddleSuccess,
-    user_data
+    user_data,
+    orderHistory,
+    setOrderHistory
   };
 
   /**

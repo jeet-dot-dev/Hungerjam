@@ -28,7 +28,7 @@ const App = () => {
   }, [scrollYProgress]);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full bg-[#0f172a]">
       {/* Fixed Navbar with optional Popup */}
       <motion.div className="w-screen h-[50px] fixed z-50">
         <Popup />

@@ -48,7 +48,7 @@ const Form = () => {
           }
         }
       )
-      haddleSuccess("Address saved successfully");
+      haddleSuccess("Address saved successfully continue with your order");
       window.location.href = '/cart'; // Redirect and refresh directly
 
       //console.log(response.status);
