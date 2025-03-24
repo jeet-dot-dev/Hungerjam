@@ -3,9 +3,11 @@ import { motion } from "framer-motion";
 import { MdDeliveryDining } from "react-icons/md";
 import { StoreContext } from "../Context/Context";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Form = () => {
   const {url,getAccessTokenSilently,haddleError, haddleSuccess} = useContext(StoreContext);
+  const navigate = useNavigate();
   //console.log(url);
   const [data, setData] = useState({
     firstname: "",
@@ -47,9 +49,11 @@ const Form = () => {
         }
       )
       haddleSuccess("Address saved successfully");
-      console.log(response.status);
+      window.location.href = '/cart'; // Redirect and refresh directly
+
+      //console.log(response.status);
     } catch (error) {
-      haddleError(error?.response.data.message);
+      haddleError(error?.response.data?.errors[0]);
       console.log(error);
     }
 
