@@ -1,83 +1,109 @@
-# HungerJam - A Full-Stack Food Delivery Website
+# Hungerjam
 
-## 📌 Project Overview
-HungerJam is a full-stack food ordering and delivery web application designed to provide users with a seamless food ordering experience. The platform includes user authentication, menu browsing, order placement, and an admin panel for restaurant management. The payment and admin sections are still under development.
+A modern food delivery web application with a beautiful UI and comprehensive features for both customers and administrators.
 
-## 🚀 Tech Stack
-### Frontend (React + Vite)
-- **Framework**: React 18 (with Vite for faster development)
-- **UI & Styling**: Tailwind CSS, Framer Motion, Lucide React
-- **State Management & Routing**: React Router DOM
-- **Authentication**: Auth0
-- **API Calls & Notifications**: Axios, React Toastify
+## Tech Stack
 
-### Backend (Node.js + Express)
-- **Framework**: Express.js
-- **Database**: MongoDB (with Mongoose for ORM)
-- **Authentication & Security**: JWT, bcryptjs, express-jwt, OAuth2
-- **File Uploads**: Multer & Cloudinary
-- **Payment Integration**: Stripe
-- **Email Notifications**: Nodemailer
-- **Validation**: Joi & Validator
+### Frontend
+* **Framework**: React 18 (with Vite for faster development)
+* **UI & Styling**: Tailwind CSS, Framer Motion, Lucide React
+* **State Management & Routing**: React Router DOM
+* **Authentication**: Auth0
+* **API Calls & Notifications**: Axios, React Toastify
 
-## ✨ Features Implemented
-### ✅ User Side
-- User authentication (Sign in/Sign out using Auth0)
-- Responsive UI with smooth animations
-- Food menu display with detailed descriptions and images
-- Add to cart & checkout functionality (basic setup)
-- Toast notifications for better user feedback
+### Backend
+* **Framework**: Express.js
+* **Database**: MongoDB (with Mongoose for ORM)
+* **Authentication & Security**: JWT, bcryptjs, express-jwt, OAuth2
+* **File Uploads**: Multer & Cloudinary
+* **Payment Integration**: Stripe
+* **Validation**: Joi & Validator
 
-### ✅ Backend API
-- User authentication & authorization using JWT
-- Secure password hashing with bcryptjs
-- CRUD operations for food items (Admin access required)
-- Image uploads handled via Cloudinary & Multer
-- Payment integration (Stripe setup in progress)
+## Features
 
-### 🛠️ Work in Progress
-- **Payment Page**: Integrating Stripe for handling online payments securely.
-- **Admin Panel**: A dashboard for restaurant owners to manage orders, inventory, and users.
+### User Features
+* User authentication (Sign in/Sign out using Auth0)
+* Responsive UI with smooth animations
+* Food menu display with detailed descriptions and images
+* Add to cart & checkout functionality
+* Toast notifications for better user feedback
+* Secure payment processing via Stripe
 
-## ⚡ Challenges & Solutions
-### 🔴 Challenge 1: Authentication & Authorization
-**Problem:** Managing user authentication while securing admin routes.
-**Solution:** Implemented JWT-based authentication for API endpoints and used Auth0 for frontend authentication.
+### Admin Features
+* CRUD operations for food items (Admin access required)
+* User authentication & authorization using JWT
+* Secure password hashing with bcryptjs
+* Image uploads handled via Cloudinary & Multer
 
-### 🔴 Challenge 2: File Uploads
-**Problem:** Storing food images efficiently without affecting performance.
-**Solution:** Used Cloudinary for image storage, integrating it with Multer for handling uploads.
+## Getting Started
 
-### 🔴 Challenge 3: Payment Gateway
-**Problem:** Setting up a secure and seamless payment experience.
-**Solution:** Started integrating Stripe, handling tokenization, and setting up backend payment routes.
+### Prerequisites
+* Node.js and npm installed
+* MongoDB account
+* Auth0 account
+* Cloudinary account
+* Stripe account (for payment processing)
 
-## 🔧 How to Run the Project
-### 1️⃣ Clone the Repository
-```sh
+### Installation
+
+**1️⃣ Clone the Repository**
+
+```
 git clone https://github.com/goustcoder/hungerjam.git
 cd hungerjam
 ```
 
-### 2️⃣ Setup Backend
-```sh
+**2️⃣ Setup Backend**
+
+```
 cd backend
 npm install
 npm start
 ```
 
-### 3️⃣ Setup Frontend
-```sh
+**3️⃣ Setup Frontend**
+
+```
 cd frontend
 npm install
 npm run dev
 ```
 
-## 🎯 Future Enhancements
-- Complete payment gateway integration
-- Admin panel with order tracking & analytics
-- User reviews & ratings for food items
-- Delivery partner module for real-time tracking
+## Environment Variables
 
+### Frontend (.env)
+```
+VITE_API_URL=http://localhost:3000
+VITE_CLIENT_ID=your_auth0_client_id
+VITE_DOMAIN=your_auth0_domain
+VITE_AUDIENCE_URL=your_auth0_audience_url
+```
 
+### Backend (.env)
+```
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret_key
+CLOUD_NAME=your_cloudinary_name
+CLOUD_API_KEY=your_cloudinary_api_key
+CLOUD_API_KEY_SECRET=your_cloudinary_api_secret
+BASE_URL=http://localhost:3000
+STRIPE_SECRET_KEY=your_stripe_secret_key
+FRONT_END_URL=http://localhost:5173
+```
 
+## Challenges and Solutions
+
+### Optimization
+To improve performance, the following strategies were implemented:
+* React code splitting for faster loading
+* Lazy loading components to reduce initial load time
+* Converting images to WebP format for better compression and quality
+
+### Authentication
+Implementing Auth0 for the first time presented challenges in understanding the authentication flow between frontend and backend. The solution involved:
+* Studying Auth0 documentation
+* Implementing proper token validation
+* Ensuring secure data flow between frontend and backend
+
+## License
+This project is licensed under the MIT License
