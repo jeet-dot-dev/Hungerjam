@@ -1,13 +1,11 @@
-import React, { useContext, useState } from "react";
+import  { useContext, useState } from "react";
 import { motion } from "framer-motion";
 import { MdDeliveryDining } from "react-icons/md";
 import { StoreContext } from "../Context/Context";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const Form = () => {
   const {url,getAccessTokenSilently,haddleError, haddleSuccess} = useContext(StoreContext);
-  const navigate = useNavigate();
   //console.log(url);
   const [data, setData] = useState({
     firstname: "",
@@ -39,7 +37,7 @@ const Form = () => {
     console.log("Form submitted with data:", data);
     const token = await getAccessTokenSilently();
     try {
-      const response = await axios.post(
+      await axios.post(
         `${url}/api/address`,data,
         {
           headers:{
@@ -53,7 +51,12 @@ const Form = () => {
 
       //console.log(response.status);
     } catch (error) {
-      haddleError(error?.response.data?.errors[0]);
+      const errorMessage = 
+        error?.response?.data?.errors?.[0] || 
+        error?.response?.data?.message || 
+        error?.message || 
+        "Failed to save address";
+      haddleError(errorMessage);
       console.log(error);
     }
 

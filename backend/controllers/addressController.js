@@ -39,9 +39,18 @@ export const storeAddress = async (req, res) => {
       return res
         .status(201)
         .json({ message: "Address stored successfully", address: newAddress });
-    }
+    } else {
+      // Address already exists, update it instead
+      const existingAddress = await Address.findByIdAndUpdate(
+        user.address,
+        data,
+        { new: true }
+      );
 
-    return res.status(409).json({ message: "Address already saved" });
+      return res
+        .status(200)
+        .json({ message: "Address updated successfully", address: existingAddress });
+    }
   } catch (error) {
     console.log( error);
     return res.status(500).json({ message: "Internal server error" });
